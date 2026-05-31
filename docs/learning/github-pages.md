@@ -9,23 +9,6 @@ GitHub Pages 可以把 GitHub 仓库里的静态网站发布成公网可访问�
 
 这篇笔记记录我这次搭建个人博客时真正走过的一套流程：本地用 VitePress 写 Markdown，推送到 GitHub 仓库，GitHub Actions 自动构建，最后通过 GitHub Pages 发布到线上。
 
-<div class="doc-motion-banner">
-  <div>
-    <span>Static Publishing Pipeline</span>
-    <strong>Markdown → VitePress → GitHub Actions → Pages</strong>
-    <p>一篇学习笔记从本地 Markdown 变成公开网页，本质上就是一次自动化静态发布流程。</p>
-  </div>
-  <div class="doc-pipeline">
-    <span>Write</span>
-    <i></i>
-    <span>Build</span>
-    <i></i>
-    <span>Deploy</span>
-    <i></i>
-    <span>Visit</span>
-  </div>
-</div>
-
 ## 先理解一句话
 
 GitHub Pages 的本质是：
