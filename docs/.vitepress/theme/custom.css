@@ -31,9 +31,26 @@ body {
     linear-gradient(180deg, rgba(10, 17, 29, 0.96), rgba(15, 23, 42, 0.82) 520px, var(--vp-c-bg) 900px);
 }
 
-.VPNavBar {
-  border-bottom: 1px solid rgba(148, 163, 184, 0.18);
-  backdrop-filter: blur(14px);
+.VPNav {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(248, 250, 252, 0.72));
+  border-bottom: 1px solid rgba(148, 163, 184, 0.22);
+  box-shadow: 0 16px 42px rgba(15, 23, 42, 0.07);
+  backdrop-filter: blur(18px) saturate(1.25);
+}
+
+.dark .VPNav {
+  background:
+    linear-gradient(180deg, rgba(12, 18, 32, 0.86), rgba(12, 18, 32, 0.7));
+  border-bottom-color: rgba(148, 163, 184, 0.14);
+  box-shadow: 0 16px 42px rgba(0, 0, 0, 0.28);
+}
+
+.VPNavBar,
+.VPNavBar .content-body,
+.VPNavBar.has-sidebar .content-body {
+  border-bottom: 0;
+  background: transparent !important;
 }
 
 .VPNavBarTitle .title {
@@ -42,6 +59,19 @@ body {
 
 .VPNavBarMenuLink {
   font-weight: 800;
+  transition: color 0.18s ease, background 0.18s ease;
+}
+
+.VPNavBarMenuLink.active,
+.VPNavBarMenuLink:hover {
+  color: var(--blog-blue);
+}
+
+.VPNavBarSearch .DocSearch-Button {
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.66);
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.05);
 }
 
 .VPHomeHero .text {
@@ -312,6 +342,41 @@ body {
   padding-top: 0;
 }
 
+body:has(.landing-home) .VPNav {
+  background:
+    linear-gradient(180deg, rgba(8, 14, 28, 0.62), rgba(8, 14, 28, 0.2));
+  border-bottom-color: rgba(255, 255, 255, 0.12);
+  box-shadow: none;
+}
+
+body:has(.landing-home) .VPNavBarTitle .title,
+body:has(.landing-home) .VPNavBarMenuLink,
+body:has(.landing-home) .VPNavBarExtra,
+body:has(.landing-home) .VPSocialLink {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+body:has(.landing-home) .VPNavBarMenuLink.active,
+body:has(.landing-home) .VPNavBarMenuLink:hover {
+  color: #fff !important;
+  text-shadow: 0 8px 22px rgba(0, 0, 0, 0.28);
+}
+
+body:has(.landing-home) .VPNavBarSearch .DocSearch-Button {
+  border-color: rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.84);
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: none;
+  backdrop-filter: blur(12px);
+}
+
+body:has(.landing-home) .VPNavBarSearch .DocSearch-Button-Key,
+body:has(.landing-home) .VPSwitch {
+  border-color: rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.86);
+  background: rgba(255, 255, 255, 0.14);
+}
+
 .landing-hero {
   position: relative;
   left: 50%;
@@ -499,63 +564,56 @@ body {
   --cursor-x: -80px;
   --cursor-y: -80px;
   z-index: 9999;
-  width: 34px;
-  height: 34px;
+  width: 44px;
+  height: 44px;
   opacity: 0;
-  transform: translate3d(calc(var(--cursor-x) - 9px), calc(var(--cursor-y) - 8px), 0) rotate(-16deg);
-  transition: opacity 0.16s ease, transform 0.055s linear;
-  filter: drop-shadow(0 6px 14px rgba(37, 99, 235, 0.28));
+  transform: translate3d(calc(var(--cursor-x) - 13px), calc(var(--cursor-y) - 12px), 0) rotate(-13deg);
+  transition: opacity 0.16s ease, transform 0.045s linear;
 }
 
 .paw-cursor[data-visible="true"] {
   opacity: 1;
 }
 
-.paw-cursor span {
-  position: absolute;
+.paw-cursor-art {
   display: block;
-  background: radial-gradient(circle at 35% 28%, #fff 0 15%, #dbeafe 16% 34%, #60a5fa 35% 76%, #2563eb 100%);
-  box-shadow:
-    inset 0 -2px 5px rgba(15, 23, 42, 0.18),
-    0 0 14px rgba(96, 165, 250, 0.42);
+  width: 100%;
+  height: 100%;
 }
 
-.paw-cursor .toe {
-  width: 10px;
-  height: 10px;
-  border-radius: 999px;
+.paw-fur,
+.paw-toe-fur {
+  fill: url("#paw-fur");
+  opacity: 0.96;
+  stroke: rgba(120, 82, 50, 0.28);
+  stroke-width: 1.2;
 }
 
-.paw-cursor .toe-1 {
-  top: 5px;
-  left: 3px;
+.paw-toe-pad,
+.paw-pad {
+  fill: url("#paw-pad");
+  stroke: rgba(122, 36, 54, 0.2);
+  stroke-width: 1;
 }
 
-.paw-cursor .toe-2 {
-  top: 0;
-  left: 11px;
+.paw-toe-fur {
+  opacity: 0.98;
 }
 
-.paw-cursor .toe-3 {
-  top: 2px;
-  right: 6px;
+.paw-toe-pad {
+  opacity: 0.9;
 }
 
-.paw-cursor .toe-4 {
-  top: 11px;
-  right: 1px;
+.paw-pad {
+  opacity: 0.98;
 }
 
-.paw-cursor .pad {
-  left: 8px;
-  bottom: 2px;
-  width: 19px;
-  height: 17px;
-  border-radius: 48% 52% 56% 44% / 54% 50% 50% 46%;
-  background: radial-gradient(circle at 36% 28%, #fff7ed 0 13%, #fed7aa 14% 34%, #fb7185 35% 76%, #e11d48 100%);
-  box-shadow:
-    inset 0 -2px 5px rgba(127, 29, 29, 0.18),
-    0 0 16px rgba(251, 113, 133, 0.4);
+.paw-highlight {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.62);
+  stroke-width: 2;
+  stroke-linecap: round;
+  opacity: 0.72;
 }
 
 .screenshot-grid {
