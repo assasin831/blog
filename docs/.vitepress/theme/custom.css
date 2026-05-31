@@ -43,10 +43,21 @@ body {
   pointer-events: none;
   background:
     linear-gradient(180deg, rgba(248, 250, 252, 0.78), rgba(248, 250, 252, 0.9) 44%, rgba(255, 255, 255, 0.96)),
-    url('/images/landing-anime-bg.png') center right / cover no-repeat;
-  filter: blur(20px) saturate(0.92) contrast(0.98);
-  transform: scale(1.06);
+    url('/images/landing-anime-bg-blur.jpg') center right / cover no-repeat;
+  filter: saturate(0.92) contrast(0.98);
+  transform: scale(1.03);
   opacity: 0.72;
+}
+
+body:not(:has(.landing-home)) .Layout::before {
+  inset: -24px;
+  background:
+    linear-gradient(90deg, rgba(248, 250, 252, 0.16) 0%, rgba(248, 250, 252, 0.5) 21%, rgba(248, 250, 252, 0.84) 38%, rgba(248, 250, 252, 0.84) 62%, rgba(248, 250, 252, 0.46) 79%, rgba(248, 250, 252, 0.12) 100%),
+    linear-gradient(180deg, rgba(248, 250, 252, 0.3), rgba(255, 255, 255, 0.66)),
+    url('/images/landing-anime-bg-blur.jpg') center right / cover no-repeat;
+  filter: saturate(1.08) contrast(1.05);
+  transform: scale(1.03);
+  opacity: 0.98;
 }
 
 .Layout::after {
@@ -61,12 +72,29 @@ body {
     linear-gradient(180deg, rgba(255, 255, 255, 0.38), rgba(255, 255, 255, 0.7));
 }
 
+body:not(:has(.landing-home)) .Layout::after {
+  background:
+    radial-gradient(circle at 8% 40%, rgba(15, 23, 42, 0.24), transparent 24%),
+    radial-gradient(circle at 92% 22%, rgba(124, 58, 237, 0.2), transparent 29%),
+    radial-gradient(circle at 83% 72%, rgba(127, 29, 29, 0.13), transparent 28%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.58) 36%, rgba(255, 255, 255, 0.6) 64%, rgba(255, 255, 255, 0.08) 100%);
+}
+
 .dark .Layout::before {
   background:
     linear-gradient(180deg, rgba(10, 17, 29, 0.8), rgba(10, 17, 29, 0.88) 42%, rgba(10, 17, 29, 0.96)),
-    url('/images/landing-anime-bg.png') center right / cover no-repeat;
-  filter: blur(20px) saturate(0.95) contrast(1.04);
+    url('/images/landing-anime-bg-blur.jpg') center right / cover no-repeat;
+  filter: saturate(0.95) contrast(1.04);
   opacity: 0.82;
+}
+
+.dark body:not(:has(.landing-home)) .Layout::before {
+  background:
+    linear-gradient(90deg, rgba(10, 17, 29, 0.2) 0%, rgba(10, 17, 29, 0.54) 22%, rgba(10, 17, 29, 0.8) 38%, rgba(10, 17, 29, 0.8) 62%, rgba(10, 17, 29, 0.5) 78%, rgba(10, 17, 29, 0.14) 100%),
+    linear-gradient(180deg, rgba(10, 17, 29, 0.36), rgba(10, 17, 29, 0.68)),
+    url('/images/landing-anime-bg-blur.jpg') center right / cover no-repeat;
+  filter: saturate(1.08) contrast(1.08);
+  opacity: 0.98;
 }
 
 .dark .Layout::after {
@@ -74,6 +102,14 @@ body {
     radial-gradient(circle at 80% 18%, rgba(124, 58, 237, 0.14), transparent 31%),
     radial-gradient(circle at 22% 74%, rgba(239, 68, 68, 0.1), transparent 28%),
     linear-gradient(180deg, rgba(10, 17, 29, 0.36), rgba(10, 17, 29, 0.76));
+}
+
+.dark body:not(:has(.landing-home)) .Layout::after {
+  background:
+    radial-gradient(circle at 8% 40%, rgba(2, 6, 23, 0.36), transparent 24%),
+    radial-gradient(circle at 92% 22%, rgba(124, 58, 237, 0.22), transparent 29%),
+    radial-gradient(circle at 83% 72%, rgba(127, 29, 29, 0.2), transparent 28%),
+    linear-gradient(90deg, rgba(10, 17, 29, 0.2) 0%, rgba(10, 17, 29, 0.64) 36%, rgba(10, 17, 29, 0.66) 64%, rgba(10, 17, 29, 0.2) 100%);
 }
 
 .VPNav {
@@ -187,8 +223,8 @@ body {
   padding: 26px 30px 34px;
   border: 1px solid rgba(148, 163, 184, 0.18);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.72);
-  box-shadow: 0 24px 70px rgba(15, 23, 42, 0.08);
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 0 24px 70px rgba(15, 23, 42, 0.12);
   backdrop-filter: blur(18px) saturate(1.08);
 }
 
@@ -199,12 +235,12 @@ body {
 }
 
 .VPSidebar {
-  background: rgba(248, 250, 252, 0.62) !important;
+  background: linear-gradient(90deg, rgba(248, 250, 252, 0.62), rgba(248, 250, 252, 0.34)) !important;
   backdrop-filter: blur(18px) saturate(1.1);
 }
 
 .dark .VPSidebar {
-  background: rgba(10, 17, 29, 0.62) !important;
+  background: linear-gradient(90deg, rgba(10, 17, 29, 0.66), rgba(10, 17, 29, 0.34)) !important;
 }
 
 .vp-doc h2 {
