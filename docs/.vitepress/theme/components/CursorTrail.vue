@@ -183,42 +183,37 @@ onBeforeUnmount(() => {
   <div v-if="enabled" ref="cursorRef" class="paw-cursor" aria-hidden="true">
     <svg class="paw-cursor-art" viewBox="0 0 72 72" focusable="false">
       <defs>
-        <radialGradient id="paw-fur" cx="36%" cy="26%" r="74%">
-          <stop offset="0%" stop-color="#fff7e8" />
-          <stop offset="46%" stop-color="#e7c9a1" />
-          <stop offset="100%" stop-color="#b98557" />
+        <radialGradient id="paw-top-fur" cx="34%" cy="22%" r="78%">
+          <stop offset="0%" stop-color="#fff7e7" />
+          <stop offset="45%" stop-color="#d9ad79" />
+          <stop offset="100%" stop-color="#8d5e38" />
         </radialGradient>
-        <radialGradient id="paw-pad" cx="34%" cy="26%" r="78%">
-          <stop offset="0%" stop-color="#ffe5e5" />
-          <stop offset="48%" stop-color="#f5a2ae" />
-          <stop offset="100%" stop-color="#c84f69" />
-        </radialGradient>
-        <filter id="paw-soft-shadow" x="-35%" y="-35%" width="170%" height="170%">
-          <feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#172033" flood-opacity="0.26" />
+        <linearGradient id="paw-claw" x1="0" x2="1" y1="0" y2="1">
+          <stop offset="0%" stop-color="#fffaf0" />
+          <stop offset="100%" stop-color="#9b6a42" />
+        </linearGradient>
+        <filter id="paw-soft-shadow" x="-40%" y="-40%" width="180%" height="180%">
+          <feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#120d0a" flood-opacity="0.32" />
         </filter>
       </defs>
       <g filter="url(#paw-soft-shadow)">
         <path
-          class="paw-fur"
-          fill="url(#paw-fur)"
-          d="M12 41.5C10.6 31.5 17.8 23 28.2 20.8c11.4-2.4 23.6 2.4 29.4 12.8 5.2 9.4 2.6 20.5-6.1 25.8-8.4 5.1-23.8 4.6-32.3-1.2-5.1-3.5-6.5-9-7.2-16.7Z"
+          class="paw-top-base"
+          fill="url(#paw-top-fur)"
+          d="M15.7 42.5c.9-12.2 9.3-20.4 20.1-20.4 11 0 19.8 8.4 20.7 20.7.8 11.2-6.2 18.2-20.4 18.2-14.3 0-21.2-7.2-20.4-18.5Z"
         />
-        <ellipse class="paw-toe-fur" fill="url(#paw-fur)" cx="18.4" cy="26.5" rx="8.8" ry="11.1" transform="rotate(-24 18.4 26.5)" />
-        <ellipse class="paw-toe-fur" fill="url(#paw-fur)" cx="32" cy="18.5" rx="9.2" ry="11.8" transform="rotate(-5 32 18.5)" />
-        <ellipse class="paw-toe-fur" fill="url(#paw-fur)" cx="46.8" cy="21.2" rx="8.9" ry="11.1" transform="rotate(20 46.8 21.2)" />
-        <ellipse class="paw-toe-fur" fill="url(#paw-fur)" cx="56.2" cy="34.2" rx="7.9" ry="9.9" transform="rotate(35 56.2 34.2)" />
-        <ellipse class="paw-toe-pad" fill="url(#paw-pad)" cx="18.7" cy="27.1" rx="4.9" ry="6.4" transform="rotate(-24 18.7 27.1)" />
-        <ellipse class="paw-toe-pad" fill="url(#paw-pad)" cx="32.1" cy="19.2" rx="5.2" ry="6.9" transform="rotate(-5 32.1 19.2)" />
-        <ellipse class="paw-toe-pad" fill="url(#paw-pad)" cx="46.4" cy="21.8" rx="5" ry="6.4" transform="rotate(20 46.4 21.8)" />
-        <ellipse class="paw-toe-pad" fill="url(#paw-pad)" cx="55.4" cy="34.6" rx="4.4" ry="5.7" transform="rotate(35 55.4 34.6)" />
-        <path
-          class="paw-pad"
-          fill="url(#paw-pad)"
-          d="M24.8 45.2c1.5-8.2 6.5-12.8 13.1-12.2 6.1.5 10.7 5.3 11.7 12.2 1.2 8.5-4.7 12.2-12.8 12.1-8.1-.1-13.6-4.2-12-12.1Z"
-        />
-        <path class="paw-highlight" d="M20.5 23.3c-2.8.6-4.3 2.9-4.5 5.3" />
-        <path class="paw-highlight" d="M33.9 14.3c-3.2.3-5.3 2.1-6 5" />
-        <path class="paw-highlight" d="M37.8 36.7c-4.1.5-7 3.3-8 7.5" />
+        <ellipse class="paw-top-toe" fill="url(#paw-top-fur)" cx="17.9" cy="27.5" rx="8.3" ry="10.3" transform="rotate(-22 17.9 27.5)" />
+        <ellipse class="paw-top-toe" fill="url(#paw-top-fur)" cx="30.7" cy="19.3" rx="8.8" ry="11.2" transform="rotate(-7 30.7 19.3)" />
+        <ellipse class="paw-top-toe" fill="url(#paw-top-fur)" cx="44.7" cy="20.7" rx="8.6" ry="10.9" transform="rotate(13 44.7 20.7)" />
+        <ellipse class="paw-top-toe" fill="url(#paw-top-fur)" cx="55.8" cy="30.2" rx="7.5" ry="9.8" transform="rotate(29 55.8 30.2)" />
+        <path class="paw-claw" fill="url(#paw-claw)" d="M12.2 17.1c4.3.4 7.4 2.1 9.4 5.2-4.4-.8-7.5-.2-9.4 1.9-.7-2.4-.7-4.8 0-7.1Z" />
+        <path class="paw-claw" fill="url(#paw-claw)" d="M28 8.8c4 1.3 6.5 3.8 7.6 7.3-3.9-1.7-7-1.9-9.4-.4-.1-2.6.5-4.9 1.8-6.9Z" />
+        <path class="paw-claw" fill="url(#paw-claw)" d="M47.8 10.5c2.8 2.5 4.1 5.5 3.8 8.9-2.9-2.6-5.6-3.7-8.1-3.1.7-2.5 2.2-4.5 4.3-5.8Z" />
+        <path class="paw-claw" fill="url(#paw-claw)" d="M63 22.7c1.1 3.6.5 6.8-1.8 9.5-1.3-3.5-3.2-5.8-5.6-6.9 1.9-1.7 4.4-2.6 7.4-2.6Z" />
+        <path class="paw-fur-line" d="M25.2 34.6c3.1-2.6 6.6-3.9 10.5-3.9 4.3 0 8.1 1.5 11.4 4.4" />
+        <path class="paw-fur-line" d="M29.5 45.2c4.1 1.8 8.5 1.9 13.2.2" />
+        <path class="paw-fur-line" d="M19.7 34.1c-2.4 2.2-3.6 5.1-3.7 8.7" />
+        <path class="paw-fur-line" d="M53.2 36.1c2 2.5 2.8 5.6 2.4 9.1" />
       </g>
     </svg>
   </div>

@@ -344,9 +344,9 @@ body {
 
 body:has(.landing-home) .VPNav {
   background:
-    linear-gradient(180deg, rgba(8, 14, 28, 0.62), rgba(8, 14, 28, 0.2));
-  border-bottom-color: rgba(255, 255, 255, 0.12);
-  box-shadow: none;
+    linear-gradient(180deg, rgba(9, 11, 24, 0.74), rgba(9, 11, 24, 0.24));
+  border-bottom-color: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.16);
 }
 
 body:has(.landing-home) .VPNavBarTitle .title,
@@ -391,15 +391,30 @@ body:has(.landing-home) .VPSwitch {
   isolation: isolate;
 }
 
+.landing-hero::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  content: "";
+  background:
+    radial-gradient(circle at 76% 24%, rgba(168, 85, 247, 0.22), transparent 24%),
+    radial-gradient(circle at 84% 78%, rgba(220, 38, 38, 0.18), transparent 28%),
+    linear-gradient(115deg, transparent 0 46%, rgba(255, 255, 255, 0.08) 46.3%, transparent 47.2% 100%),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 7px);
+  mix-blend-mode: screen;
+  opacity: 0.54;
+}
+
 .landing-hero-media {
   position: absolute;
   inset: 0;
   z-index: -3;
-  background-image: url('/images/landing-landscape.png');
-  background-position: center;
+  background-image: url('/images/landing-anime-bg.png');
+  background-position: center right;
   background-size: cover;
-  transform: scale(1.04);
-  animation: hero-drift 24s ease-in-out infinite alternate;
+  filter: blur(2px) saturate(1.12) contrast(1.08);
+  transform: scale(1.055);
+  animation: hero-drift 22s ease-in-out infinite alternate;
 }
 
 .landing-hero-overlay {
@@ -407,8 +422,9 @@ body:has(.landing-home) .VPSwitch {
   inset: 0;
   z-index: -2;
   background:
-    linear-gradient(90deg, rgba(8, 14, 28, 0.78) 0%, rgba(8, 14, 28, 0.52) 42%, rgba(8, 14, 28, 0.12) 72%),
-    linear-gradient(180deg, rgba(8, 14, 28, 0.28) 0%, rgba(8, 14, 28, 0.08) 52%, rgba(8, 14, 28, 0.48) 100%);
+    radial-gradient(circle at 75% 23%, rgba(47, 20, 72, 0.16), transparent 34%),
+    linear-gradient(90deg, rgba(5, 8, 18, 0.92) 0%, rgba(9, 12, 26, 0.7) 43%, rgba(9, 12, 26, 0.24) 72%),
+    linear-gradient(180deg, rgba(5, 8, 18, 0.38) 0%, rgba(5, 8, 18, 0.14) 48%, rgba(5, 8, 18, 0.7) 100%);
 }
 
 .landing-hero-content {
@@ -423,14 +439,15 @@ body:has(.landing-home) .VPSwitch {
   width: max-content;
   max-width: 100%;
   padding: 7px 11px;
-  border: 1px solid rgba(255, 255, 255, 0.28);
+  border: 1px solid rgba(248, 113, 113, 0.36);
   border-radius: 8px;
   color: rgba(255, 255, 255, 0.9);
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(127, 29, 29, 0.18);
   backdrop-filter: blur(14px);
   font-size: 13px;
   font-weight: 900;
   letter-spacing: 0.02em;
+  box-shadow: 0 12px 34px rgba(127, 29, 29, 0.22);
 }
 
 .landing-hero-content h1 {
@@ -440,7 +457,9 @@ body:has(.landing-home) .VPSwitch {
   font-size: clamp(44px, 6.4vw, 78px);
   line-height: 0.98;
   letter-spacing: 0;
-  text-shadow: 0 18px 52px rgba(0, 0, 0, 0.34);
+  text-shadow:
+    0 2px 0 rgba(248, 113, 113, 0.18),
+    0 18px 52px rgba(0, 0, 0, 0.5);
 }
 
 .landing-hero-content p {
@@ -472,15 +491,17 @@ body:has(.landing-home) .VPSwitch {
 }
 
 .landing-hero-actions a:first-child {
-  color: #0f172a !important;
-  background: rgba(255, 255, 255, 0.92);
-  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.22);
+  color: white !important;
+  background: linear-gradient(135deg, #ef4444, #7c3aed);
+  box-shadow:
+    0 18px 42px rgba(127, 29, 29, 0.34),
+    0 0 28px rgba(124, 58, 237, 0.18);
 }
 
 .landing-hero-actions a:last-child {
   border: 1px solid rgba(255, 255, 255, 0.34);
   color: white !important;
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(15, 23, 42, 0.28);
   backdrop-filter: blur(14px);
 }
 
@@ -564,10 +585,10 @@ body:has(.landing-home) .VPSwitch {
   --cursor-x: -80px;
   --cursor-y: -80px;
   z-index: 9999;
-  width: 44px;
-  height: 44px;
+  width: 46px;
+  height: 46px;
   opacity: 0;
-  transform: translate3d(calc(var(--cursor-x) - 13px), calc(var(--cursor-y) - 12px), 0) rotate(-13deg);
+  transform: translate3d(calc(var(--cursor-x) - 18px), calc(var(--cursor-y) - 16px), 0) rotate(-8deg);
   transition: opacity 0.16s ease, transform 0.045s linear;
 }
 
@@ -581,39 +602,27 @@ body:has(.landing-home) .VPSwitch {
   height: 100%;
 }
 
-.paw-fur,
-.paw-toe-fur {
-  fill: url("#paw-fur");
-  opacity: 0.96;
-  stroke: rgba(120, 82, 50, 0.28);
+.paw-top-base,
+.paw-top-toe {
+  fill: url("#paw-top-fur");
+  stroke: rgba(74, 45, 25, 0.32);
   stroke-width: 1.2;
-}
-
-.paw-toe-pad,
-.paw-pad {
-  fill: url("#paw-pad");
-  stroke: rgba(122, 36, 54, 0.2);
-  stroke-width: 1;
-}
-
-.paw-toe-fur {
   opacity: 0.98;
 }
 
-.paw-toe-pad {
-  opacity: 0.9;
+.paw-claw {
+  fill: url("#paw-claw");
+  stroke: rgba(74, 45, 25, 0.24);
+  stroke-width: 0.9;
+  opacity: 0.92;
 }
 
-.paw-pad {
-  opacity: 0.98;
-}
-
-.paw-highlight {
+.paw-fur-line {
   fill: none;
-  stroke: rgba(255, 255, 255, 0.62);
-  stroke-width: 2;
+  stroke: rgba(255, 249, 235, 0.52);
+  stroke-width: 1.8;
   stroke-linecap: round;
-  opacity: 0.72;
+  opacity: 0.68;
 }
 
 .screenshot-grid {
