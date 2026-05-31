@@ -18,6 +18,7 @@ export default defineConfig({
       { text: '每日记录', link: '/posts/' },
       { text: '项目笔记', link: '/projects/smartmall-ai' },
       { text: '学习笔记', link: '/learning/' },
+      { text: '留言板', link: '/guestbook' },
       { text: '关于', link: '/about' }
     ],
     sidebar: {

@@ -25,6 +25,56 @@ features:
     details: 整理 Java、Spring Boot、Vue、MySQL、Redis、AI Agent、部署和工程实践。
 ---
 
+<section class="conference-stage">
+  <div class="stage-copy">
+    <span class="stage-kicker">Personal Research Log · 2026</span>
+    <h2>像会议官网一样展示每天的学习进展</h2>
+    <p>把项目复盘、学习笔记、路线计划和留言交流放在一个持续更新的网站里。页面保持 GitHub Pages 的轻量部署，同时加入动态视觉、滚动信息和更清晰的内容入口。</p>
+    <div class="stage-actions">
+      <a href="/blog/posts/2026-05-30">查看最新复盘</a>
+      <a href="/blog/guestbook">去留言板交流</a>
+    </div>
+  </div>
+  <div class="stage-board" aria-label="博客动态展示">
+    <div class="board-top">
+      <span class="live-dot"></span>
+      <strong>Publishing Pipeline</strong>
+      <small>GitHub Pages</small>
+    </div>
+    <div class="board-timeline">
+      <div>
+        <span>01</span>
+        <strong>Write</strong>
+        <small>Markdown 每日记录</small>
+      </div>
+      <div>
+        <span>02</span>
+        <strong>Build</strong>
+        <small>VitePress 静态构建</small>
+      </div>
+      <div>
+        <span>03</span>
+        <strong>Deploy</strong>
+        <small>GitHub Actions 自动发布</small>
+      </div>
+    </div>
+    <div class="stage-marquee">
+      <div>
+        <span>SmartMall AI</span>
+        <span>Vue + Spring Boot</span>
+        <span>MySQL / Redis</span>
+        <span>AI Agent</span>
+        <span>GitHub Pages</span>
+        <span>SmartMall AI</span>
+        <span>Vue + Spring Boot</span>
+        <span>MySQL / Redis</span>
+        <span>AI Agent</span>
+        <span>GitHub Pages</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="home-dashboard">
   <div class="metric-block">
     <span>当前项目</span>
