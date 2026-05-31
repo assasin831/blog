@@ -1,30 +1,43 @@
 <script setup lang="ts">
 import { nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
 
-interface TrailParticle {
-  x: number
-  y: number
-  px: number
-  py: number
+interface TrailCell {
   vx: number
   vy: number
-  life: number
-  maxLife: number
-  width: number
-  shade: number
-  sparkle: number
+  energy: number
+  glow: number
+  grain: number
 }
 
 const canvasRef = ref<HTMLCanvasElement | null>(null)
 const cursorRef = ref<HTMLElement | null>(null)
 const enabled = ref(false)
+const CELL_SIZE = 20
+const MAX_DEPOSIT_STEPS = 18
 
 let ctx: CanvasRenderingContext2D | null = null
 let raf = 0
-let particles: TrailParticle[] = []
+let trailCells: TrailCell[] = []
+let activeCells = new Set<number>()
+let gridCols = 0
+let gridRows = 0
 let lastX: number | null = null
 let lastY: number | null = null
 let cursorVisible = false
+let nativeCursorZone = false
+
+function buildTrailGrid(width: number, height: number) {
+  gridCols = Math.ceil(width / CELL_SIZE) + 2
+  gridRows = Math.ceil(height / CELL_SIZE) + 2
+  trailCells = Array.from({ length: gridCols * gridRows }, (_, index) => ({
+    vx: 0,
+    vy: 0,
+    energy: 0,
+    glow: 0,
+    grain: ((index * 37) % 17) / 17
+  }))
+  activeCells = new Set<number>()
+}
 
 function resizeCanvas() {
   const canvas = canvasRef.value
@@ -36,48 +49,75 @@ function resizeCanvas() {
   canvas.style.height = `${window.innerHeight}px`
   ctx = canvas.getContext('2d')
   ctx?.setTransform(ratio, 0, 0, ratio, 0, 0)
+  buildTrailGrid(window.innerWidth, window.innerHeight)
 }
 
-function addParticles(x: number, y: number, px: number, py: number, count = 2) {
+function isNativeCursorTarget(target: EventTarget | null) {
+  if (!(target instanceof Element)) return false
+  return Boolean(target.closest('.comments-block, .comments-card, .comments-widget, .utterances, iframe'))
+}
+
+function setNativeCursorZone(value: boolean) {
+  nativeCursorZone = value
+  document.documentElement.classList.toggle('sword-cursor-native-zone', value)
+  if (cursorRef.value) {
+    cursorRef.value.dataset.nativeZone = value ? 'true' : 'false'
+  }
+  if (value) {
+    hideCursor()
+  }
+}
+
+function depositTrailEnergy(x: number, y: number, dirX: number, dirY: number, strength: number) {
+  const col = Math.floor(x / CELL_SIZE)
+  const row = Math.floor(y / CELL_SIZE)
+
+  for (let oy = -1; oy <= 1; oy += 1) {
+    for (let ox = -1; ox <= 1; ox += 1) {
+      const cellCol = col + ox
+      const cellRow = row + oy
+      if (cellCol < 0 || cellRow < 0 || cellCol >= gridCols || cellRow >= gridRows) continue
+
+      const index = cellRow * gridCols + cellCol
+      const centerX = (cellCol + 0.5) * CELL_SIZE
+      const centerY = (cellRow + 0.5) * CELL_SIZE
+      const distance = Math.hypot(centerX - x, centerY - y)
+      const falloff = Math.max(0, 1 - distance / (CELL_SIZE * 1.45))
+      if (falloff <= 0) continue
+
+      const cell = trailCells[index]
+      const energy = strength * falloff
+      cell.energy = Math.min(1.4, cell.energy + energy * 0.8)
+      cell.glow = Math.min(1.1, cell.glow + energy * 0.5)
+      cell.vx = cell.vx * 0.58 + dirX * (0.42 + energy * 0.28)
+      cell.vy = cell.vy * 0.58 + dirY * (0.42 + energy * 0.28)
+      activeCells.add(index)
+    }
+  }
+}
+
+function addGridTrail(x: number, y: number, px: number, py: number, strength = 1) {
   const distance = Math.hypot(x - px, y - py)
   if (distance < 2) return
 
-  for (let i = 0; i < count; i += 1) {
-    const drift = Math.random() * Math.PI * 2
-    const offset = (Math.random() - 0.5) * 7
-    const dx = x - px
-    const dy = y - py
-    const length = Math.max(distance, 1)
-    const normalX = -dy / length
-    const normalY = dx / length
-    const trailX = x + normalX * offset
-    const trailY = y + normalY * offset
-    const trailPX = px + normalX * offset * 0.35
-    const trailPY = py + normalY * offset * 0.35
-    const speed = 0.08 + Math.random() * 0.34
+  const dx = x - px
+  const dy = y - py
+  const length = Math.max(distance, 1)
+  const dirX = dx / length
+  const dirY = dy / length
+  const steps = Math.min(MAX_DEPOSIT_STEPS, Math.max(1, Math.ceil(distance / (CELL_SIZE * 0.55))))
 
-    particles.push({
-      x: trailX,
-      y: trailY,
-      px: trailPX,
-      py: trailPY,
-      vx: Math.cos(drift) * speed,
-      vy: Math.sin(drift) * speed - 0.04,
-      life: 24 + Math.random() * 26,
-      maxLife: 50,
-      width: 1.2 + Math.random() * 3.4,
-      shade: Math.random(),
-      sparkle: Math.random()
-    })
-  }
-
-  if (particles.length > 160) {
-    particles = particles.slice(-120)
+  for (let i = 0; i <= steps; i += 1) {
+    const t = i / steps
+    depositTrailEnergy(px + dx * t, py + dy * t, dirX, dirY, strength * (0.72 + t * 0.28))
   }
 }
 
 function moveCursor(event: MouseEvent | PointerEvent) {
   if ('pointerType' in event && event.pointerType !== 'mouse') return
+  const inNativeZone = isNativeCursorTarget(event.target)
+  setNativeCursorZone(inNativeZone)
+  if (inNativeZone) return
 
   const x = event.clientX
   const y = event.clientY
@@ -89,7 +129,12 @@ function moveCursor(event: MouseEvent | PointerEvent) {
   cursorVisible = true
   cursorRef.value?.style.setProperty('--cursor-x', `${x}px`)
   cursorRef.value?.style.setProperty('--cursor-y', `${y}px`)
-  addParticles(x, y, px, py, event.buttons ? 5 : 2)
+  addGridTrail(x, y, px, py, event.buttons ? 1.35 : 0.86)
+}
+
+function checkCursorZone(event: MouseEvent | PointerEvent) {
+  if ('pointerType' in event && event.pointerType !== 'mouse') return
+  setNativeCursorZone(isNativeCursorTarget(event.target))
 }
 
 function hideCursor() {
@@ -109,45 +154,63 @@ function draw() {
   ctx.lineCap = 'round'
   ctx.lineJoin = 'round'
 
-  particles = particles.filter((particle) => {
-    particle.x += particle.vx
-    particle.y += particle.vy
-    particle.px += particle.vx * 0.35
-    particle.py += particle.vy * 0.35
-    particle.vx *= 0.982
-    particle.vy *= 0.982
-    particle.life -= 1
+  for (const index of Array.from(activeCells)) {
+    const particle = trailCells[index]
+    if (!particle || (particle.energy < 0.012 && particle.glow < 0.01)) {
+      activeCells.delete(index)
+      continue
+    }
 
-    const alpha = Math.pow(Math.max(particle.life / particle.maxLife, 0), 1.35)
-    const gradient = ctx!.createLinearGradient(particle.px, particle.py, particle.x, particle.y)
+    const col = index % gridCols
+    const row = Math.floor(index / gridCols)
+    const centerX = (col + 0.5) * CELL_SIZE
+    const centerY = (row + 0.5) * CELL_SIZE
+    const alpha = Math.min(particle.energy, 1)
+    const length = 8 + particle.energy * 18
+    const shift = (particle.grain - 0.5) * CELL_SIZE * 0.42
+    const velocityLength = Math.max(Math.hypot(particle.vx, particle.vy), 0.001)
+    const dirX = particle.vx / velocityLength
+    const dirY = particle.vy / velocityLength
+    const normalX = -dirY
+    const normalY = dirX
+    const startX = centerX - dirX * length * 0.56 + normalX * shift
+    const startY = centerY - dirY * length * 0.56 + normalY * shift
+    const endX = centerX + dirX * length * 0.38 + normalX * shift * 0.28
+    const endY = centerY + dirY * length * 0.38 + normalY * shift * 0.28
+
+    const gradient = ctx!.createLinearGradient(startX, startY, endX, endY)
     gradient.addColorStop(0, `rgba(2, 6, 15, 0)`)
-    gradient.addColorStop(0.42, `rgba(17, 18, 32, ${alpha * 0.16})`)
-    gradient.addColorStop(1, `rgba(7, 8, 14, ${alpha * 0.72})`)
+    gradient.addColorStop(0.46, `rgba(17, 18, 32, ${alpha * 0.13})`)
+    gradient.addColorStop(1, `rgba(7, 8, 14, ${alpha * 0.58})`)
 
     ctx!.strokeStyle = gradient
-    ctx!.lineWidth = particle.width * (0.8 + alpha * 0.55)
+    ctx!.lineWidth = 0.8 + particle.energy * 3.8
     ctx!.beginPath()
-    ctx!.moveTo(particle.px, particle.py)
-    ctx!.lineTo(particle.x, particle.y)
+    ctx!.moveTo(startX, startY)
+    ctx!.lineTo(endX, endY)
     ctx!.stroke()
 
-    if (particle.sparkle > 0.32) {
-      const radius = particle.width * (1.8 + alpha * 1.35)
-      const shine = ctx!.createRadialGradient(particle.x, particle.y, 0, particle.x, particle.y, radius * 2.7)
-      shine.addColorStop(0, `rgba(12, 11, 20, ${alpha * 0.44})`)
-      shine.addColorStop(0.42, `rgba(50, 34, 78, ${alpha * 0.18})`)
+    if (particle.glow > 0.06) {
+      const radius = 5 + particle.glow * 18
+      const shine = ctx!.createRadialGradient(centerX, centerY, 0, centerX, centerY, radius * 2.1)
+      shine.addColorStop(0, `rgba(12, 11, 20, ${particle.glow * 0.32})`)
+      shine.addColorStop(0.42, `rgba(50, 34, 78, ${particle.glow * 0.12})`)
       shine.addColorStop(1, `rgba(2, 6, 15, 0)`)
       ctx!.fillStyle = shine
       ctx!.beginPath()
-      ctx!.arc(particle.x, particle.y, radius * 2.7, 0, Math.PI * 2)
+      ctx!.arc(centerX, centerY, radius * 2.1, 0, Math.PI * 2)
       ctx!.fill()
     }
 
-    return particle.life > 0
-  })
+    particle.energy *= 0.86
+    particle.glow *= 0.82
+    particle.vx *= 0.9
+    particle.vy *= 0.9
+  }
 
   if (cursorRef.value) {
-    cursorRef.value.dataset.visible = cursorVisible ? 'true' : 'false'
+    cursorRef.value.dataset.visible = cursorVisible && !nativeCursorZone ? 'true' : 'false'
+    cursorRef.value.dataset.nativeZone = nativeCursorZone ? 'true' : 'false'
   }
 
   raf = window.requestAnimationFrame(draw)
@@ -164,6 +227,8 @@ onMounted(() => {
   void nextTick().then(() => {
     resizeCanvas()
     window.addEventListener('resize', resizeCanvas)
+    window.addEventListener('pointerover', checkCursorZone)
+    window.addEventListener('mouseover', checkCursorZone)
     window.addEventListener('pointermove', moveCursor)
     window.addEventListener('mousemove', moveCursor)
     window.addEventListener('pointerleave', hideCursor)
@@ -173,7 +238,10 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   document.documentElement.classList.remove('has-sword-cursor')
+  document.documentElement.classList.remove('sword-cursor-native-zone')
   window.removeEventListener('resize', resizeCanvas)
+  window.removeEventListener('pointerover', checkCursorZone)
+  window.removeEventListener('mouseover', checkCursorZone)
   window.removeEventListener('pointermove', moveCursor)
   window.removeEventListener('mousemove', moveCursor)
   window.removeEventListener('pointerleave', hideCursor)

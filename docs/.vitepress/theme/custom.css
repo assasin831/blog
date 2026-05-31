@@ -721,6 +721,20 @@ body:has(.landing-home) .VPSwitch {
   cursor: none !important;
 }
 
+.has-sword-cursor.sword-cursor-native-zone,
+.has-sword-cursor.sword-cursor-native-zone *,
+.has-sword-cursor .comments-block,
+.has-sword-cursor .comments-block *,
+.has-sword-cursor .comments-card,
+.has-sword-cursor .comments-card *,
+.has-sword-cursor .comments-widget,
+.has-sword-cursor .comments-widget *,
+.has-sword-cursor .utterances,
+.has-sword-cursor .utterances *,
+.has-sword-cursor iframe {
+  cursor: auto !important;
+}
+
 .cursor-trail-canvas,
 .sword-cursor {
   position: fixed;
@@ -737,18 +751,22 @@ body:has(.landing-home) .VPSwitch {
   --cursor-x: -80px;
   --cursor-y: -80px;
   z-index: 9999;
-  width: 34px;
-  height: 70px;
+  width: 26px;
+  height: 54px;
   opacity: 0;
-  transform: translate3d(calc(var(--cursor-x) - 14px), calc(var(--cursor-y) - 62px), 0) rotate(-38deg);
+  transform: translate3d(calc(var(--cursor-x) - 11px), calc(var(--cursor-y) - 48px), 0) rotate(-38deg);
   transition: opacity 0.16s ease, transform 0.045s linear;
   filter:
-    drop-shadow(0 7px 11px rgba(2, 6, 23, 0.42))
-    drop-shadow(0 0 10px rgba(49, 46, 129, 0.2));
+    drop-shadow(0 5px 8px rgba(2, 6, 23, 0.36))
+    drop-shadow(0 0 7px rgba(49, 46, 129, 0.18));
 }
 
 .sword-cursor[data-visible="true"] {
   opacity: 1;
+}
+
+.sword-cursor[data-native-zone="true"] {
+  opacity: 0;
 }
 
 .sword-cursor-art {
