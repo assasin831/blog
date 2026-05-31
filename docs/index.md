@@ -11,10 +11,10 @@ hero:
   actions:
     - theme: brand
       text: 查看每日记录
-      link: /blog/posts/
+      link: /posts/
     - theme: alt
       text: 查看项目笔记
-      link: /blog/projects/smartmall-ai
+      link: /projects/smartmall-ai
 
 features:
   - title: 每日记录
