@@ -1,43 +1,25 @@
 <script setup lang="ts">
 import { nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
 
-interface TrailCell {
-  vx: number
-  vy: number
-  energy: number
-  glow: number
-  grain: number
+interface TrailPoint {
+  x: number
+  y: number
+  life: number
 }
 
 const canvasRef = ref<HTMLCanvasElement | null>(null)
 const cursorRef = ref<HTMLElement | null>(null)
 const enabled = ref(false)
-const CELL_SIZE = 20
-const MAX_DEPOSIT_STEPS = 18
+const MAX_TRAIL_POINTS = 48
+const TRAIL_SPACING = 5
 
 let ctx: CanvasRenderingContext2D | null = null
 let raf = 0
-let trailCells: TrailCell[] = []
-let activeCells = new Set<number>()
-let gridCols = 0
-let gridRows = 0
+let trailPoints: TrailPoint[] = []
 let lastX: number | null = null
 let lastY: number | null = null
 let cursorVisible = false
 let nativeCursorZone = false
-
-function buildTrailGrid(width: number, height: number) {
-  gridCols = Math.ceil(width / CELL_SIZE) + 2
-  gridRows = Math.ceil(height / CELL_SIZE) + 2
-  trailCells = Array.from({ length: gridCols * gridRows }, (_, index) => ({
-    vx: 0,
-    vy: 0,
-    energy: 0,
-    glow: 0,
-    grain: ((index * 37) % 17) / 17
-  }))
-  activeCells = new Set<number>()
-}
 
 function resizeCanvas() {
   const canvas = canvasRef.value
@@ -49,7 +31,6 @@ function resizeCanvas() {
   canvas.style.height = `${window.innerHeight}px`
   ctx = canvas.getContext('2d')
   ctx?.setTransform(ratio, 0, 0, ratio, 0, 0)
-  buildTrailGrid(window.innerWidth, window.innerHeight)
 }
 
 function isNativeCursorTarget(target: EventTarget | null) {
@@ -65,51 +46,41 @@ function setNativeCursorZone(value: boolean) {
   }
   if (value) {
     hideCursor()
+    trailPoints = []
   }
 }
 
-function depositTrailEnergy(x: number, y: number, dirX: number, dirY: number, strength: number) {
-  const col = Math.floor(x / CELL_SIZE)
-  const row = Math.floor(y / CELL_SIZE)
+function pushTrailPoint(x: number, y: number, strength: number) {
+  const lastPoint = trailPoints[trailPoints.length - 1]
+  if (lastPoint && Math.hypot(x - lastPoint.x, y - lastPoint.y) < TRAIL_SPACING) {
+    lastPoint.x = x
+    lastPoint.y = y
+    lastPoint.life = Math.min(1, lastPoint.life + strength * 0.22)
+    return
+  }
 
-  for (let oy = -1; oy <= 1; oy += 1) {
-    for (let ox = -1; ox <= 1; ox += 1) {
-      const cellCol = col + ox
-      const cellRow = row + oy
-      if (cellCol < 0 || cellRow < 0 || cellCol >= gridCols || cellRow >= gridRows) continue
+  trailPoints.push({
+    x,
+    y,
+    life: Math.min(1, 0.82 + strength * 0.16)
+  })
 
-      const index = cellRow * gridCols + cellCol
-      const centerX = (cellCol + 0.5) * CELL_SIZE
-      const centerY = (cellRow + 0.5) * CELL_SIZE
-      const distance = Math.hypot(centerX - x, centerY - y)
-      const falloff = Math.max(0, 1 - distance / (CELL_SIZE * 1.45))
-      if (falloff <= 0) continue
-
-      const cell = trailCells[index]
-      const energy = strength * falloff
-      cell.energy = Math.min(1.4, cell.energy + energy * 0.8)
-      cell.glow = Math.min(1.1, cell.glow + energy * 0.5)
-      cell.vx = cell.vx * 0.58 + dirX * (0.42 + energy * 0.28)
-      cell.vy = cell.vy * 0.58 + dirY * (0.42 + energy * 0.28)
-      activeCells.add(index)
-    }
+  if (trailPoints.length > MAX_TRAIL_POINTS) {
+    trailPoints.splice(0, trailPoints.length - MAX_TRAIL_POINTS)
   }
 }
 
-function addGridTrail(x: number, y: number, px: number, py: number, strength = 1) {
+function addMeteorTrail(x: number, y: number, px: number, py: number, strength = 1) {
   const distance = Math.hypot(x - px, y - py)
   if (distance < 2) return
 
   const dx = x - px
   const dy = y - py
-  const length = Math.max(distance, 1)
-  const dirX = dx / length
-  const dirY = dy / length
-  const steps = Math.min(MAX_DEPOSIT_STEPS, Math.max(1, Math.ceil(distance / (CELL_SIZE * 0.55))))
+  const steps = Math.min(14, Math.max(1, Math.ceil(distance / TRAIL_SPACING)))
 
   for (let i = 0; i <= steps; i += 1) {
     const t = i / steps
-    depositTrailEnergy(px + dx * t, py + dy * t, dirX, dirY, strength * (0.72 + t * 0.28))
+    pushTrailPoint(px + dx * t, py + dy * t, strength * (0.62 + t * 0.38))
   }
 }
 
@@ -129,7 +100,7 @@ function moveCursor(event: MouseEvent | PointerEvent) {
   cursorVisible = true
   cursorRef.value?.style.setProperty('--cursor-x', `${x}px`)
   cursorRef.value?.style.setProperty('--cursor-y', `${y}px`)
-  addGridTrail(x, y, px, py, event.buttons ? 1.35 : 0.86)
+  addMeteorTrail(x, y, px, py, event.buttons ? 1.18 : 0.92)
 }
 
 function checkCursorZone(event: MouseEvent | PointerEvent) {
@@ -143,6 +114,44 @@ function hideCursor() {
   lastY = null
 }
 
+function drawMeteorLayer(widthScale: number, alphaScale: number, core = false) {
+  if (!ctx || trailPoints.length < 2) return
+
+  const tail = trailPoints[0]
+  const head = trailPoints[trailPoints.length - 1]
+  const alpha = Math.min(head.life * alphaScale, 1)
+  if (alpha < 0.01) return
+
+  const gradient = ctx.createLinearGradient(tail.x, tail.y, head.x, head.y)
+  if (core) {
+    gradient.addColorStop(0, 'rgba(129, 140, 248, 0)')
+    gradient.addColorStop(0.52, `rgba(165, 180, 252, ${alpha * 0.2})`)
+    gradient.addColorStop(0.86, `rgba(191, 219, 254, ${alpha * 0.42})`)
+    gradient.addColorStop(1, `rgba(248, 250, 252, ${alpha * 0.68})`)
+  } else {
+    gradient.addColorStop(0, 'rgba(2, 6, 15, 0)')
+    gradient.addColorStop(0.32, `rgba(15, 23, 42, ${alpha * 0.16})`)
+    gradient.addColorStop(0.78, `rgba(15, 23, 42, ${alpha * 0.46})`)
+    gradient.addColorStop(1, `rgba(5, 7, 18, ${alpha * 0.86})`)
+  }
+
+  ctx.strokeStyle = gradient
+  ctx.lineWidth = (core ? 1.2 : 3.6) + widthScale * head.life * (core ? 0.62 : 0.78)
+  ctx.beginPath()
+  ctx.moveTo(tail.x, tail.y)
+
+  for (let i = 1; i < trailPoints.length - 1; i += 1) {
+    const point = trailPoints[i]
+    const next = trailPoints[i + 1]
+    const midX = (point.x + next.x) / 2
+    const midY = (point.y + next.y) / 2
+    ctx.quadraticCurveTo(point.x, point.y, midX, midY)
+  }
+
+  ctx.lineTo(head.x, head.y)
+  ctx.stroke()
+}
+
 function draw() {
   if (!ctx) {
     raf = window.requestAnimationFrame(draw)
@@ -154,59 +163,35 @@ function draw() {
   ctx.lineCap = 'round'
   ctx.lineJoin = 'round'
 
-  for (const index of Array.from(activeCells)) {
-    const particle = trailCells[index]
-    if (!particle || (particle.energy < 0.012 && particle.glow < 0.01)) {
-      activeCells.delete(index)
-      continue
-    }
+  if (trailPoints.length > 1) {
+    ctx.shadowColor = 'rgba(2, 6, 23, 0.3)'
+    ctx.shadowBlur = 14
+    drawMeteorLayer(22, 1.35)
 
-    const col = index % gridCols
-    const row = Math.floor(index / gridCols)
-    const centerX = (col + 0.5) * CELL_SIZE
-    const centerY = (row + 0.5) * CELL_SIZE
-    const alpha = Math.min(particle.energy, 1)
-    const length = 8 + particle.energy * 18
-    const shift = (particle.grain - 0.5) * CELL_SIZE * 0.42
-    const velocityLength = Math.max(Math.hypot(particle.vx, particle.vy), 0.001)
-    const dirX = particle.vx / velocityLength
-    const dirY = particle.vy / velocityLength
-    const normalX = -dirY
-    const normalY = dirX
-    const startX = centerX - dirX * length * 0.56 + normalX * shift
-    const startY = centerY - dirY * length * 0.56 + normalY * shift
-    const endX = centerX + dirX * length * 0.38 + normalX * shift * 0.28
-    const endY = centerY + dirY * length * 0.38 + normalY * shift * 0.28
-
-    const gradient = ctx!.createLinearGradient(startX, startY, endX, endY)
-    gradient.addColorStop(0, `rgba(2, 6, 15, 0)`)
-    gradient.addColorStop(0.46, `rgba(17, 18, 32, ${alpha * 0.13})`)
-    gradient.addColorStop(1, `rgba(7, 8, 14, ${alpha * 0.58})`)
-
-    ctx!.strokeStyle = gradient
-    ctx!.lineWidth = 0.8 + particle.energy * 3.8
-    ctx!.beginPath()
-    ctx!.moveTo(startX, startY)
-    ctx!.lineTo(endX, endY)
-    ctx!.stroke()
-
-    if (particle.glow > 0.06) {
-      const radius = 5 + particle.glow * 18
-      const shine = ctx!.createRadialGradient(centerX, centerY, 0, centerX, centerY, radius * 2.1)
-      shine.addColorStop(0, `rgba(12, 11, 20, ${particle.glow * 0.32})`)
-      shine.addColorStop(0.42, `rgba(50, 34, 78, ${particle.glow * 0.12})`)
-      shine.addColorStop(1, `rgba(2, 6, 15, 0)`)
-      ctx!.fillStyle = shine
-      ctx!.beginPath()
-      ctx!.arc(centerX, centerY, radius * 2.1, 0, Math.PI * 2)
-      ctx!.fill()
-    }
-
-    particle.energy *= 0.86
-    particle.glow *= 0.82
-    particle.vx *= 0.9
-    particle.vy *= 0.9
+    ctx.globalCompositeOperation = 'lighter'
+    ctx.shadowColor = 'rgba(129, 140, 248, 0.3)'
+    ctx.shadowBlur = 10
+    drawMeteorLayer(6, 1.1, true)
+    ctx.globalCompositeOperation = 'source-over'
+    ctx.shadowBlur = 0
   }
+
+  const head = trailPoints[trailPoints.length - 1]
+  if (head && cursorVisible && !nativeCursorZone) {
+    const headGlow = ctx.createRadialGradient(head.x, head.y, 0, head.x, head.y, 26)
+    headGlow.addColorStop(0, 'rgba(226, 232, 240, 0.28)')
+    headGlow.addColorStop(0.45, 'rgba(99, 102, 241, 0.13)')
+    headGlow.addColorStop(1, 'rgba(2, 6, 15, 0)')
+    ctx.fillStyle = headGlow
+    ctx.beginPath()
+    ctx.arc(head.x, head.y, 26, 0, Math.PI * 2)
+    ctx.fill()
+  }
+
+  for (const point of trailPoints) {
+    point.life *= 0.955
+  }
+  trailPoints = trailPoints.filter((point) => point.life > 0.035)
 
   if (cursorRef.value) {
     cursorRef.value.dataset.visible = cursorVisible && !nativeCursorZone ? 'true' : 'false'
