@@ -27,18 +27,20 @@ features:
 ---
 
 <section class="landing-hero">
-  <div class="landing-hero-media" aria-hidden="true"></div>
-  <div class="landing-hero-overlay"></div>
-  <div class="landing-hero-content">
-    <span>个人日志 · 项目笔记 · 学习复盘</span>
-    <h1>每日学习与工作记录</h1>
-    <p>记录真实的项目推进、技术学习、问题复盘和阶段总结。把每天走过的路留下来，也把正在构建的作品慢慢打磨成形。</p>
-    <div class="landing-hero-actions">
-      <a href="/blog/posts/">查看每日记录</a>
-      <a href="/blog/projects/smartmall-ai">查看项目笔记</a>
+  <div class="landing-hero-sticky">
+    <div class="landing-hero-media" aria-hidden="true"></div>
+    <div class="landing-hero-overlay"></div>
+    <div class="landing-hero-content">
+      <span>个人日志 · 项目笔记 · 学习复盘</span>
+      <h1>每日学习与工作记录</h1>
+      <p>记录真实的项目推进、技术学习、问题复盘和阶段总结。把每天走过的路留下来，也把正在构建的作品慢慢打磨成形。</p>
+      <div class="landing-hero-actions">
+        <a href="/blog/posts/">查看每日记录</a>
+        <a href="/blog/projects/smartmall-ai">查看项目笔记</a>
+      </div>
     </div>
+    <a class="scroll-cue" href="#content-start">向下浏览</a>
   </div>
-  <a class="scroll-cue" href="#content-start">向下浏览</a>
 </section>
 
 <section id="content-start" class="home-dashboard">

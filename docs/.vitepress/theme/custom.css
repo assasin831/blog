@@ -158,6 +158,16 @@ body {
   margin: 14px 0 36px;
 }
 
+.landing-home .home-dashboard {
+  position: relative;
+  z-index: 2;
+  margin-top: -52px;
+}
+
+.landing-home #content-start {
+  scroll-margin-top: calc(var(--vp-nav-height, 64px) + 24px);
+}
+
 .metric-block,
 .spotlight-card,
 .writing-flow > div,
@@ -378,20 +388,33 @@ body:has(.landing-home) .VPSwitch {
 }
 
 .landing-hero {
+  --hero-progress: 0;
   position: relative;
   left: 50%;
   width: 100vw;
-  min-height: calc(100vh - 64px);
-  overflow: hidden;
-  display: grid;
-  align-items: center;
+  min-height: calc(126vh - var(--vp-nav-height, 64px));
+  height: calc(168vh - var(--vp-nav-height, 64px));
+  overflow: visible;
+  display: block;
   margin: 0 0 38px;
   margin-left: -50vw;
   color: white;
   isolation: isolate;
 }
 
-.landing-hero::before {
+.landing-hero-sticky {
+  position: sticky;
+  top: var(--vp-nav-height, 64px);
+  height: calc(100vh - var(--vp-nav-height, 64px));
+  min-height: 620px;
+  overflow: hidden;
+  display: grid;
+  align-items: center;
+  color: white;
+  isolation: isolate;
+}
+
+.landing-hero-sticky::before {
   position: absolute;
   inset: 0;
   z-index: -1;
@@ -402,7 +425,19 @@ body:has(.landing-home) .VPSwitch {
     linear-gradient(115deg, transparent 0 46%, rgba(255, 255, 255, 0.08) 46.3%, transparent 47.2% 100%),
     repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 7px);
   mix-blend-mode: screen;
-  opacity: 0.54;
+  opacity: calc(0.54 - var(--hero-progress) * 0.16);
+}
+
+.landing-hero-sticky::after {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: -1;
+  height: 42%;
+  content: "";
+  background:
+    linear-gradient(180deg, transparent 0%, rgba(5, 8, 18, 0.68) 68%, rgba(248, 250, 252, 0.98) 100%);
+  opacity: calc(var(--hero-progress) * 0.94);
+  pointer-events: none;
 }
 
 .landing-hero-media {
@@ -412,8 +447,9 @@ body:has(.landing-home) .VPSwitch {
   background-image: url('/images/landing-anime-bg.png');
   background-position: center right;
   background-size: cover;
-  filter: blur(2px) saturate(1.12) contrast(1.08);
-  transform: scale(1.055);
+  --hero-media-scale: calc(1.055 + var(--hero-progress) * 0.075);
+  filter: blur(calc(2px + var(--hero-progress) * 4px)) saturate(1.12) contrast(1.08);
+  transform: scale(var(--hero-media-scale));
   animation: hero-drift 22s ease-in-out infinite alternate;
 }
 
@@ -433,6 +469,9 @@ body:has(.landing-home) .VPSwitch {
   gap: 18px;
   margin: 0 auto;
   padding: 80px 0 110px;
+  opacity: calc(1 - var(--hero-progress) * 0.52);
+  transform: translate3d(0, calc(var(--hero-progress) * -58px), 0);
+  transition: opacity 0.12s linear, transform 0.12s linear;
 }
 
 .landing-hero-content span {
@@ -674,6 +713,22 @@ body:has(.landing-home) .VPSwitch {
     grid-template-columns: 1fr;
   }
 
+  .landing-hero {
+    height: auto;
+    min-height: auto;
+  }
+
+  .landing-hero-sticky {
+    position: relative;
+    top: auto;
+    min-height: calc(100vh - var(--vp-nav-height, 64px));
+    height: auto;
+  }
+
+  .landing-home .home-dashboard {
+    margin-top: 14px;
+  }
+
   .VPHomeHero .image {
     display: none;
   }
@@ -681,10 +736,10 @@ body:has(.landing-home) .VPSwitch {
 
 @keyframes hero-drift {
   from {
-    transform: scale(1.04) translate3d(-10px, 0, 0);
+    transform: scale(var(--hero-media-scale)) translate3d(-10px, 0, 0);
   }
   to {
-    transform: scale(1.09) translate3d(10px, -8px, 0);
+    transform: scale(calc(var(--hero-media-scale) + 0.035)) translate3d(10px, -8px, 0);
   }
 }
 
