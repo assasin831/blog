@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import DefaultTheme from 'vitepress/theme'
+import CursorTrail from './components/CursorTrail.vue'
 import Utterances from './components/Utterances.vue'
 </script>
 
@@ -9,4 +10,5 @@ import Utterances from './components/Utterances.vue'
       <Utterances />
     </template>
   </DefaultTheme.Layout>
+  <CursorTrail />
 </template>

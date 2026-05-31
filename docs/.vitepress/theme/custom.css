@@ -478,6 +478,86 @@ body {
   min-height: 150px;
 }
 
+.has-paw-cursor,
+.has-paw-cursor * {
+  cursor: none !important;
+}
+
+.cursor-trail-canvas,
+.paw-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.cursor-trail-canvas {
+  z-index: 9998;
+}
+
+.paw-cursor {
+  --cursor-x: -80px;
+  --cursor-y: -80px;
+  z-index: 9999;
+  width: 34px;
+  height: 34px;
+  opacity: 0;
+  transform: translate3d(calc(var(--cursor-x) - 9px), calc(var(--cursor-y) - 8px), 0) rotate(-16deg);
+  transition: opacity 0.16s ease, transform 0.055s linear;
+  filter: drop-shadow(0 6px 14px rgba(37, 99, 235, 0.28));
+}
+
+.paw-cursor[data-visible="true"] {
+  opacity: 1;
+}
+
+.paw-cursor span {
+  position: absolute;
+  display: block;
+  background: radial-gradient(circle at 35% 28%, #fff 0 15%, #dbeafe 16% 34%, #60a5fa 35% 76%, #2563eb 100%);
+  box-shadow:
+    inset 0 -2px 5px rgba(15, 23, 42, 0.18),
+    0 0 14px rgba(96, 165, 250, 0.42);
+}
+
+.paw-cursor .toe {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+}
+
+.paw-cursor .toe-1 {
+  top: 5px;
+  left: 3px;
+}
+
+.paw-cursor .toe-2 {
+  top: 0;
+  left: 11px;
+}
+
+.paw-cursor .toe-3 {
+  top: 2px;
+  right: 6px;
+}
+
+.paw-cursor .toe-4 {
+  top: 11px;
+  right: 1px;
+}
+
+.paw-cursor .pad {
+  left: 8px;
+  bottom: 2px;
+  width: 19px;
+  height: 17px;
+  border-radius: 48% 52% 56% 44% / 54% 50% 50% 46%;
+  background: radial-gradient(circle at 36% 28%, #fff7ed 0 13%, #fed7aa 14% 34%, #fb7185 35% 76%, #e11d48 100%);
+  box-shadow:
+    inset 0 -2px 5px rgba(127, 29, 29, 0.18),
+    0 0 16px rgba(251, 113, 133, 0.4);
+}
+
 .screenshot-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
