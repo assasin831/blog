@@ -680,13 +680,13 @@ body:has(.landing-home) .VPSwitch {
   min-height: 150px;
 }
 
-.has-paw-cursor,
-.has-paw-cursor * {
+.has-sword-cursor,
+.has-sword-cursor * {
   cursor: none !important;
 }
 
 .cursor-trail-canvas,
-.paw-cursor {
+.sword-cursor {
   position: fixed;
   top: 0;
   left: 0;
@@ -697,48 +697,69 @@ body:has(.landing-home) .VPSwitch {
   z-index: 9998;
 }
 
-.paw-cursor {
+.sword-cursor {
   --cursor-x: -80px;
   --cursor-y: -80px;
   z-index: 9999;
-  width: 46px;
-  height: 46px;
+  width: 52px;
+  height: 106px;
   opacity: 0;
-  transform: translate3d(calc(var(--cursor-x) - 18px), calc(var(--cursor-y) - 16px), 0) rotate(-8deg);
+  transform: translate3d(calc(var(--cursor-x) - 22px), calc(var(--cursor-y) - 94px), 0) rotate(-38deg);
   transition: opacity 0.16s ease, transform 0.045s linear;
+  filter:
+    drop-shadow(0 10px 16px rgba(2, 6, 23, 0.48))
+    drop-shadow(0 0 15px rgba(49, 46, 129, 0.24));
 }
 
-.paw-cursor[data-visible="true"] {
+.sword-cursor[data-visible="true"] {
   opacity: 1;
 }
 
-.paw-cursor-art {
+.sword-cursor-art {
   display: block;
   width: 100%;
   height: 100%;
 }
 
-.paw-top-base,
-.paw-top-toe {
-  fill: url("#paw-top-fur");
-  stroke: rgba(74, 45, 25, 0.32);
-  stroke-width: 1.2;
-  opacity: 0.98;
+.sword-blade {
+  stroke: rgba(209, 213, 219, 0.26);
+  stroke-width: 1.4;
 }
 
-.paw-claw {
-  fill: url("#paw-claw");
-  stroke: rgba(74, 45, 25, 0.24);
-  stroke-width: 0.9;
-  opacity: 0.92;
-}
-
-.paw-fur-line {
+.sword-chip,
+.sword-ridge,
+.sword-wrap {
   fill: none;
-  stroke: rgba(255, 249, 235, 0.52);
-  stroke-width: 1.8;
   stroke-linecap: round;
-  opacity: 0.68;
+  stroke-linejoin: round;
+}
+
+.sword-chip {
+  stroke: rgba(226, 232, 240, 0.18);
+  stroke-width: 2.1;
+}
+
+.sword-ridge {
+  stroke: rgba(226, 232, 240, 0.34);
+  stroke-width: 1.4;
+}
+
+.sword-guard,
+.sword-pommel {
+  fill: #111827;
+  stroke: rgba(148, 163, 184, 0.42);
+  stroke-width: 1.2;
+}
+
+.sword-grip {
+  fill: #201714;
+  stroke: rgba(148, 163, 184, 0.3);
+  stroke-width: 1;
+}
+
+.sword-wrap {
+  stroke: rgba(148, 163, 184, 0.56);
+  stroke-width: 1.8;
 }
 
 .screenshot-grid {
