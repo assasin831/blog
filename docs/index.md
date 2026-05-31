@@ -11,10 +11,10 @@ hero:
   actions:
     - theme: brand
       text: 查看每日记录
-      link: /posts/
+      link: /blog/posts/
     - theme: alt
       text: 查看项目笔记
-      link: /projects/smartmall-ai
+      link: /blog/projects/smartmall-ai
 
 features:
   - title: 每日记录
@@ -46,17 +46,17 @@ features:
 ## 最近在做
 
 <div class="spotlight-grid">
-  <a class="spotlight-card primary" href="/posts/2026-05-30">
+  <a class="spotlight-card primary" href="/blog/posts/2026-05-30">
     <span>最新记录</span>
     <strong>2026-05-30 开始搭建个人博客</strong>
     <p>完成 VitePress 骨架、GitHub Pages 自动部署配置和第一篇示例日志。</p>
   </a>
-  <a class="spotlight-card" href="/projects/smartmall-ai">
+  <a class="spotlight-card" href="/blog/projects/smartmall-ai">
     <span>项目复盘</span>
     <strong>SmartMall AI 智能商城</strong>
     <p>记录商城系统从前后端搭建、AI 导购、搜索优化到高并发规划的演进。</p>
   </a>
-  <a class="spotlight-card" href="/learning/github-pages">
+  <a class="spotlight-card" href="/blog/learning/github-pages">
     <span>学习笔记</span>
     <strong>GitHub Pages 是怎么工作的</strong>
     <p>理解静态博客从 Markdown 到网页发布的完整流程。</p>

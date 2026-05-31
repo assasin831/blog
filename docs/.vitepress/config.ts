@@ -9,7 +9,7 @@ export default defineConfig({
   lastUpdated: true,
   head: [
     ['meta', { name: 'theme-color', content: '#2563eb' }],
-    ['link', { rel: 'icon', href: '/logo.svg' }]
+    ['link', { rel: 'icon', href: '/blog/logo.svg' }]
   ],
   themeConfig: {
     logo: '/logo.svg',
