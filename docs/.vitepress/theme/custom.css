@@ -531,6 +531,82 @@ body {
   min-height: 150px;
 }
 
+.doc-motion-banner {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  gap: 18px;
+  margin: 22px 0 34px;
+  padding: 22px;
+  border: 1px solid var(--blog-line);
+  border-radius: 8px;
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--vp-c-bg) 92%, white), transparent),
+    repeating-linear-gradient(90deg, rgba(37, 99, 235, 0.08) 0 1px, transparent 1px 38px),
+    repeating-linear-gradient(0deg, rgba(220, 38, 38, 0.05) 0 1px, transparent 1px 38px);
+  box-shadow: 0 18px 44px rgba(15, 23, 42, 0.08);
+}
+
+.doc-motion-banner::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  background: linear-gradient(110deg, transparent 0%, rgba(37, 99, 235, 0.08) 45%, rgba(220, 38, 38, 0.08) 52%, transparent 64%);
+  transform: translateX(-100%);
+  animation: stage-scan 9s ease-in-out infinite;
+}
+
+.doc-motion-banner > div {
+  position: relative;
+  z-index: 1;
+}
+
+.doc-motion-banner span {
+  color: var(--blog-red);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.doc-motion-banner strong {
+  display: block;
+  margin-top: 8px;
+  color: var(--blog-ink);
+  font-size: 24px;
+  line-height: 1.3;
+}
+
+.doc-motion-banner p {
+  margin: 10px 0 0;
+  color: var(--blog-muted);
+}
+
+.doc-pipeline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.doc-pipeline span {
+  display: inline-flex;
+  min-height: 34px;
+  align-items: center;
+  padding: 0 12px;
+  border: 1px solid var(--blog-line);
+  border-radius: 8px;
+  color: var(--blog-ink);
+  background: var(--vp-c-bg);
+}
+
+.doc-pipeline i {
+  width: 34px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--blog-blue), var(--blog-red));
+  animation: pipe-flow 1.6s ease-in-out infinite;
+}
+
 .screenshot-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -622,10 +698,23 @@ body {
   }
 }
 
+@keyframes pipe-flow {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scaleX(0.72);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .conference-stage::after,
+  .doc-motion-banner::after,
   .stage-board,
   .live-dot,
+  .doc-pipeline i,
   .stage-marquee > div {
     animation: none;
   }
