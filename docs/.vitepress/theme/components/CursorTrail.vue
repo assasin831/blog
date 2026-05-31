@@ -44,7 +44,7 @@ function addParticles(x: number, y: number, px: number, py: number, count = 2) {
 
   for (let i = 0; i < count; i += 1) {
     const drift = Math.random() * Math.PI * 2
-    const offset = (Math.random() - 0.5) * 10
+    const offset = (Math.random() - 0.5) * 7
     const dx = x - px
     const dy = y - py
     const length = Math.max(distance, 1)
@@ -65,7 +65,7 @@ function addParticles(x: number, y: number, px: number, py: number, count = 2) {
       vy: Math.sin(drift) * speed - 0.04,
       life: 24 + Math.random() * 26,
       maxLife: 50,
-      width: 2.2 + Math.random() * 5.8,
+      width: 1.2 + Math.random() * 3.4,
       shade: Math.random(),
       sparkle: Math.random()
     })
@@ -132,7 +132,7 @@ function draw() {
     ctx!.stroke()
 
     if (particle.sparkle > 0.32) {
-      const radius = particle.width * (2.2 + alpha * 1.8)
+      const radius = particle.width * (1.8 + alpha * 1.35)
       const shine = ctx!.createRadialGradient(particle.x, particle.y, 0, particle.x, particle.y, radius * 2.7)
       shine.addColorStop(0, `rgba(12, 11, 20, ${alpha * 0.44})`)
       shine.addColorStop(0.42, `rgba(50, 34, 78, ${alpha * 0.18})`)

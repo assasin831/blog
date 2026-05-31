@@ -737,14 +737,14 @@ body:has(.landing-home) .VPSwitch {
   --cursor-x: -80px;
   --cursor-y: -80px;
   z-index: 9999;
-  width: 52px;
-  height: 106px;
+  width: 34px;
+  height: 70px;
   opacity: 0;
-  transform: translate3d(calc(var(--cursor-x) - 22px), calc(var(--cursor-y) - 94px), 0) rotate(-38deg);
+  transform: translate3d(calc(var(--cursor-x) - 14px), calc(var(--cursor-y) - 62px), 0) rotate(-38deg);
   transition: opacity 0.16s ease, transform 0.045s linear;
   filter:
-    drop-shadow(0 10px 16px rgba(2, 6, 23, 0.48))
-    drop-shadow(0 0 15px rgba(49, 46, 129, 0.24));
+    drop-shadow(0 7px 11px rgba(2, 6, 23, 0.42))
+    drop-shadow(0 0 10px rgba(49, 46, 129, 0.2));
 }
 
 .sword-cursor[data-visible="true"] {
