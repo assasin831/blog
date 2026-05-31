@@ -43,7 +43,7 @@ export default defineConfig({
           text: '学习笔记',
           items: [
             { text: '学习笔记索引', link: '/learning/' },
-            { text: 'GitHub Pages 是怎么工作的', link: '/learning/github-pages' }
+            { text: 'GitHub Pages 完整笔记', link: '/learning/github-pages' }
           ]
         }
       ]
