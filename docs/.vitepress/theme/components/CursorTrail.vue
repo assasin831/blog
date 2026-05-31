@@ -1,23 +1,24 @@
 <script setup lang="ts">
 import { nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
 
-interface TrailPoint {
+interface TrailGhost {
   x: number
   y: number
-  life: number
 }
 
 const canvasRef = ref<HTMLCanvasElement | null>(null)
 const cursorRef = ref<HTMLElement | null>(null)
 const enabled = ref(false)
-const MAX_TRAIL_POINTS = 48
-const TRAIL_SPACING = 5
+const TRAIL_GHOST_COUNT = 9
 
 let ctx: CanvasRenderingContext2D | null = null
 let raf = 0
-let trailPoints: TrailPoint[] = []
+let trailGhosts: TrailGhost[] = []
 let lastX: number | null = null
 let lastY: number | null = null
+let targetX = -80
+let targetY = -80
+let trailOpacity = 0
 let cursorVisible = false
 let nativeCursorZone = false
 
@@ -46,42 +47,29 @@ function setNativeCursorZone(value: boolean) {
   }
   if (value) {
     hideCursor()
-    trailPoints = []
+    trailGhosts = []
+    trailOpacity = 0
   }
 }
 
-function pushTrailPoint(x: number, y: number, strength: number) {
-  const lastPoint = trailPoints[trailPoints.length - 1]
-  if (lastPoint && Math.hypot(x - lastPoint.x, y - lastPoint.y) < TRAIL_SPACING) {
-    lastPoint.x = x
-    lastPoint.y = y
-    lastPoint.life = Math.min(1, lastPoint.life + strength * 0.22)
-    return
-  }
+function resetTrail(x: number, y: number) {
+  trailGhosts = Array.from({ length: TRAIL_GHOST_COUNT }, () => ({ x, y }))
+  targetX = x
+  targetY = y
+  trailOpacity = 1
+}
 
-  trailPoints.push({
-    x,
-    y,
-    life: Math.min(1, 0.82 + strength * 0.16)
-  })
-
-  if (trailPoints.length > MAX_TRAIL_POINTS) {
-    trailPoints.splice(0, trailPoints.length - MAX_TRAIL_POINTS)
+function ensureTrail(x: number, y: number) {
+  if (trailGhosts.length !== TRAIL_GHOST_COUNT) {
+    resetTrail(x, y)
   }
 }
 
-function addMeteorTrail(x: number, y: number, px: number, py: number, strength = 1) {
-  const distance = Math.hypot(x - px, y - py)
-  if (distance < 2) return
-
-  const dx = x - px
-  const dy = y - py
-  const steps = Math.min(14, Math.max(1, Math.ceil(distance / TRAIL_SPACING)))
-
-  for (let i = 0; i <= steps; i += 1) {
-    const t = i / steps
-    pushTrailPoint(px + dx * t, py + dy * t, strength * (0.62 + t * 0.38))
-  }
+function updateTrailTarget(x: number, y: number) {
+  ensureTrail(x, y)
+  targetX = x
+  targetY = y
+  trailOpacity = Math.min(1, trailOpacity + 0.28)
 }
 
 function moveCursor(event: MouseEvent | PointerEvent) {
@@ -100,7 +88,9 @@ function moveCursor(event: MouseEvent | PointerEvent) {
   cursorVisible = true
   cursorRef.value?.style.setProperty('--cursor-x', `${x}px`)
   cursorRef.value?.style.setProperty('--cursor-y', `${y}px`)
-  addMeteorTrail(x, y, px, py, event.buttons ? 1.18 : 0.92)
+  if (Math.hypot(x - px, y - py) > 1) {
+    updateTrailTarget(x, y)
+  }
 }
 
 function checkCursorZone(event: MouseEvent | PointerEvent) {
@@ -114,42 +104,50 @@ function hideCursor() {
   lastY = null
 }
 
-function drawMeteorLayer(widthScale: number, alphaScale: number, core = false) {
-  if (!ctx || trailPoints.length < 2) return
+function updateTrailGhosts() {
+  if (trailGhosts.length !== TRAIL_GHOST_COUNT) return
 
-  const tail = trailPoints[0]
-  const head = trailPoints[trailPoints.length - 1]
-  const alpha = Math.min(head.life * alphaScale, 1)
-  if (alpha < 0.01) return
+  const visible = cursorVisible && !nativeCursorZone
+  trailOpacity = visible ? Math.min(1, trailOpacity + 0.05) : trailOpacity * 0.82
 
-  const gradient = ctx.createLinearGradient(tail.x, tail.y, head.x, head.y)
-  if (core) {
-    gradient.addColorStop(0, 'rgba(129, 140, 248, 0)')
-    gradient.addColorStop(0.52, `rgba(165, 180, 252, ${alpha * 0.2})`)
-    gradient.addColorStop(0.86, `rgba(191, 219, 254, ${alpha * 0.42})`)
-    gradient.addColorStop(1, `rgba(248, 250, 252, ${alpha * 0.68})`)
-  } else {
-    gradient.addColorStop(0, 'rgba(2, 6, 15, 0)')
-    gradient.addColorStop(0.32, `rgba(15, 23, 42, ${alpha * 0.16})`)
-    gradient.addColorStop(0.78, `rgba(15, 23, 42, ${alpha * 0.46})`)
-    gradient.addColorStop(1, `rgba(5, 7, 18, ${alpha * 0.86})`)
+  trailGhosts[0].x += (targetX - trailGhosts[0].x) * 0.46
+  trailGhosts[0].y += (targetY - trailGhosts[0].y) * 0.46
+
+  for (let i = 1; i < trailGhosts.length; i += 1) {
+    const leader = trailGhosts[i - 1]
+    const ghost = trailGhosts[i]
+    const ease = Math.max(0.15, 0.34 - i * 0.018)
+    ghost.x += (leader.x - ghost.x) * ease
+    ghost.y += (leader.y - ghost.y) * ease
   }
+}
+
+function drawTrailCurve(lineWidth: number, color: string, blur: number) {
+  if (!ctx || trailGhosts.length < 2) return
+
+  const tail = trailGhosts[trailGhosts.length - 1]
+  const head = trailGhosts[0]
+  const gradient = ctx.createLinearGradient(tail.x, tail.y, head.x, head.y)
+  gradient.addColorStop(0, 'rgba(2, 6, 15, 0)')
+  gradient.addColorStop(0.38, color.replace('ALPHA', `${0.18 * trailOpacity}`))
+  gradient.addColorStop(1, color.replace('ALPHA', `${0.62 * trailOpacity}`))
 
   ctx.strokeStyle = gradient
-  ctx.lineWidth = (core ? 1.2 : 3.6) + widthScale * head.life * (core ? 0.62 : 0.78)
+  ctx.lineWidth = lineWidth
+  ctx.shadowColor = color.replace('ALPHA', `${0.26 * trailOpacity}`)
+  ctx.shadowBlur = blur
   ctx.beginPath()
   ctx.moveTo(tail.x, tail.y)
 
-  for (let i = 1; i < trailPoints.length - 1; i += 1) {
-    const point = trailPoints[i]
-    const next = trailPoints[i + 1]
-    const midX = (point.x + next.x) / 2
-    const midY = (point.y + next.y) / 2
-    ctx.quadraticCurveTo(point.x, point.y, midX, midY)
+  for (let i = trailGhosts.length - 2; i > 0; i -= 1) {
+    const ghost = trailGhosts[i]
+    const next = trailGhosts[i - 1]
+    ctx.quadraticCurveTo(ghost.x, ghost.y, (ghost.x + next.x) / 2, (ghost.y + next.y) / 2)
   }
 
   ctx.lineTo(head.x, head.y)
   ctx.stroke()
+  ctx.shadowBlur = 0
 }
 
 function draw() {
@@ -163,35 +161,40 @@ function draw() {
   ctx.lineCap = 'round'
   ctx.lineJoin = 'round'
 
-  if (trailPoints.length > 1) {
-    ctx.shadowColor = 'rgba(2, 6, 23, 0.3)'
-    ctx.shadowBlur = 14
-    drawMeteorLayer(22, 1.35)
+  updateTrailGhosts()
 
-    ctx.globalCompositeOperation = 'lighter'
-    ctx.shadowColor = 'rgba(129, 140, 248, 0.3)'
-    ctx.shadowBlur = 10
-    drawMeteorLayer(6, 1.1, true)
+  if (trailOpacity > 0.02 && trailGhosts.length === TRAIL_GHOST_COUNT) {
+    drawTrailCurve(13, 'rgba(2, 6, 23, ALPHA)', 18)
+
+    ctx.globalCompositeOperation = 'screen'
+    drawTrailCurve(3.2, 'rgba(89, 86, 140, ALPHA)', 10)
     ctx.globalCompositeOperation = 'source-over'
-    ctx.shadowBlur = 0
-  }
 
-  const head = trailPoints[trailPoints.length - 1]
-  if (head && cursorVisible && !nativeCursorZone) {
-    const headGlow = ctx.createRadialGradient(head.x, head.y, 0, head.x, head.y, 26)
-    headGlow.addColorStop(0, 'rgba(226, 232, 240, 0.28)')
-    headGlow.addColorStop(0.45, 'rgba(99, 102, 241, 0.13)')
+    for (let i = trailGhosts.length - 1; i >= 1; i -= 1) {
+      const ghost = trailGhosts[i]
+      const t = 1 - i / (trailGhosts.length - 1)
+      const radius = 8 + t * 12
+      const alpha = trailOpacity * (0.06 + t * 0.14)
+      const smoke = ctx.createRadialGradient(ghost.x, ghost.y, 0, ghost.x, ghost.y, radius)
+      smoke.addColorStop(0, `rgba(2, 6, 23, ${alpha})`)
+      smoke.addColorStop(0.46, `rgba(45, 39, 88, ${alpha * 0.45})`)
+      smoke.addColorStop(1, 'rgba(2, 6, 15, 0)')
+      ctx.fillStyle = smoke
+      ctx.beginPath()
+      ctx.arc(ghost.x, ghost.y, radius, 0, Math.PI * 2)
+      ctx.fill()
+    }
+
+    const head = trailGhosts[0]
+    const headGlow = ctx.createRadialGradient(head.x, head.y, 0, head.x, head.y, 18)
+    headGlow.addColorStop(0, `rgba(226, 232, 240, ${0.18 * trailOpacity})`)
+    headGlow.addColorStop(0.48, `rgba(99, 102, 241, ${0.08 * trailOpacity})`)
     headGlow.addColorStop(1, 'rgba(2, 6, 15, 0)')
     ctx.fillStyle = headGlow
     ctx.beginPath()
-    ctx.arc(head.x, head.y, 26, 0, Math.PI * 2)
+    ctx.arc(head.x, head.y, 18, 0, Math.PI * 2)
     ctx.fill()
   }
-
-  for (const point of trailPoints) {
-    point.life *= 0.955
-  }
-  trailPoints = trailPoints.filter((point) => point.life > 0.035)
 
   if (cursorRef.value) {
     cursorRef.value.dataset.visible = cursorVisible && !nativeCursorZone ? 'true' : 'false'
