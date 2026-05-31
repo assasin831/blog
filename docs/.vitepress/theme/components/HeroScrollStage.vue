@@ -3,6 +3,7 @@ import { onBeforeUnmount, onMounted } from 'vue'
 
 let hero: HTMLElement | null = null
 let raf = 0
+let timer = 0
 
 function clamp(value: number) {
   return Math.min(Math.max(value, 0), 1)
@@ -35,11 +36,18 @@ onMounted(() => {
   if (!hero) return
 
   hero.classList.add('hero-stage-ready')
+  updateHeroProgress()
   raf = window.requestAnimationFrame(tick)
+  timer = window.setInterval(updateHeroProgress, 120)
+  window.addEventListener('scroll', updateHeroProgress, { passive: true })
+  window.addEventListener('resize', updateHeroProgress)
 })
 
 onBeforeUnmount(() => {
   window.cancelAnimationFrame(raf)
+  window.clearInterval(timer)
+  window.removeEventListener('scroll', updateHeroProgress)
+  window.removeEventListener('resize', updateHeroProgress)
   hero?.style.removeProperty('--hero-progress')
   hero?.classList.remove('hero-stage-ready')
   hero = null
