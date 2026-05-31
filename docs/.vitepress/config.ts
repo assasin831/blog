@@ -26,7 +26,7 @@ export default defineConfig({
           text: '每日记录',
           items: [
             { text: '记录索引', link: '/posts/' },
-            { text: '2026-05-30 开始搭建个人博客', link: '/posts/2026-05-30' }
+            { text: '2026-05-30 SmartMall AI 项目复盘', link: '/posts/2026-05-30' }
           ]
         }
       ],

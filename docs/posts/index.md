@@ -1,6 +1,6 @@
 # 每日记录
 
-这里按日期记录每天的工作、学习和项目复盘。每一篇不追求完整漂亮，先把当天真正发生的事情留下来。
+这里按日期记录每天的工作、学习和项目复盘。每一篇都尽量保留真实过程：做了什么、遇到什么问题、怎么解决、学到了什么、下一步要做什么。
 
 <div class="post-toolbar">
   <span>2026</span>
@@ -10,9 +10,9 @@
 <div class="post-list">
   <a class="post-card featured" href="./2026-05-30">
     <span>2026-05-30</span>
-    <strong>开始搭建个人博客</strong>
-    <p>完成 VitePress 博客项目初始化，规划 GitHub Pages 自动部署流程。</p>
-    <small>VitePress / GitHub Pages / 写作流程</small>
+    <strong>SmartMall AI 智能商城复盘与个人博客上线</strong>
+    <p>记录智能商城的 Agent 优化、界面打磨、数据库三层架构思想，以及 VitePress + GitHub Pages 博客上线过程。</p>
+    <small>SmartMall AI / Agent / Vue / Spring Boot / MySQL / GitHub Pages</small>
   </a>
 </div>
 
