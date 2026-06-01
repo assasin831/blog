@@ -64,10 +64,10 @@ features:
 ## 最近在做
 
 <div class="spotlight-grid">
-  <a class="spotlight-card primary" href="/blog/posts/2026-05-30">
+  <a class="spotlight-card primary" href="/blog/posts/2026-05-31">
     <span>最新记录</span>
-    <strong>2026-05-30 SmartMall AI 智能商城复盘</strong>
-    <p>详细记录 Agent 导购优化、商城 UI 打磨、数据库三层架构思想和个人博客上线过程。</p>
+    <strong>5.31 学习：部署、调试与安全复盘</strong>
+    <p>详细记录 SmartMall AI 远端部署、Nginx 反代、CORS 排查、bcrypt 密码安全和博客发布过程。</p>
   </a>
   <a class="spotlight-card" href="/blog/projects/smartmall-ai">
     <span>项目复盘</span>

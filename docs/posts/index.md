@@ -8,7 +8,14 @@
 </div>
 
 <div class="post-list">
-  <a class="post-card featured" href="./2026-05-30">
+  <a class="post-card featured" href="./2026-05-31">
+    <span>2026-05-31</span>
+    <strong>5.31 学习：SmartMall AI 部署、调试与博客上线复盘</strong>
+    <p>记录智能商城从本地开发走到远端部署的过程：Waas 端口映射、Nginx 反代、MySQL/Redis、CORS、登录安全与 GitHub Pages 博客沉淀。</p>
+    <small>Deployment / Spring Boot / Vue / MySQL / Nginx / GitHub Pages</small>
+  </a>
+
+  <a class="post-card" href="./2026-05-30">
     <span>2026-05-30</span>
     <strong>SmartMall AI 智能商城复盘与个人博客上线</strong>
     <p>记录智能商城的 Agent 优化、界面打磨、数据库三层架构思想，以及 VitePress + GitHub Pages 博客上线过程。</p>
