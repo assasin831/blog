@@ -64,10 +64,10 @@ features:
 ## 最近在做
 
 <div class="spotlight-grid">
-  <a class="spotlight-card primary" href="/blog/posts/2026-05-31">
+  <a class="spotlight-card primary" href="/blog/posts/2026-06-01">
     <span>最新记录</span>
-    <strong>5.31 学习：部署、调试与安全复盘</strong>
-    <p>详细记录 SmartMall AI 远端部署、Nginx 反代、CORS 排查、bcrypt 密码安全和博客发布过程。</p>
+    <strong>6.1 学习：线上访问恢复与部署排障</strong>
+    <p>记录 SmartMall AI 从公网 502 到恢复访问的完整过程：Waas 端口、Nginx、后端健康检查和 MySQL migration 修复。</p>
   </a>
   <a class="spotlight-card" href="/blog/projects/smartmall-ai">
     <span>项目复盘</span>

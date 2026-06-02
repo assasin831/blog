@@ -8,7 +8,14 @@
 </div>
 
 <div class="post-list">
-  <a class="post-card featured" href="./2026-05-31">
+  <a class="post-card featured" href="./2026-06-01">
+    <span>2026-06-01</span>
+    <strong>6.1 学习：SmartMall AI 线上访问恢复、Waas 部署与数据库迁移排障</strong>
+    <p>记录 SmartMall AI 从线上 502 到恢复访问的完整排障过程：Waas 端口映射、Nginx 监听、后端健康检查、MySQL migration 兼容性和登录页默认账号清理。</p>
+    <small>Waas / Nginx / Spring Boot / MySQL Migration / Deployment</small>
+  </a>
+
+  <a class="post-card" href="./2026-05-31">
     <span>2026-05-31</span>
     <strong>5.31 学习：SmartMall AI 部署、调试与博客上线复盘</strong>
     <p>记录智能商城从本地开发走到远端部署的过程：Waas 端口映射、Nginx 反代、MySQL/Redis、CORS、登录安全与 GitHub Pages 博客沉淀。</p>
