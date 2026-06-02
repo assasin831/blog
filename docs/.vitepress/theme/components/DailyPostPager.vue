@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+import { withBase } from 'vitepress'
 
 type Post = {
   date: string
@@ -20,7 +21,7 @@ const posts: Post[] = [
     summary:
       '记录 SmartMall AI 从线上 502 到恢复访问的完整排障过程，并补充三重缓存架构、300 并发压测、缓存命中率、MySQL migration 兼容性和登录页默认账号清理。',
     tags: 'Waas / Nginx / Spring Boot / MySQL Migration / Three-Level Cache / Load Test',
-    href: './2026-06-01'
+    href: '/posts/2026-06-01'
   },
   {
     date: '2026-05-31',
@@ -28,7 +29,7 @@ const posts: Post[] = [
     summary:
       '记录智能商城从本地开发走到远端部署的过程：Waas 端口映射、Nginx 反代、MySQL/Redis、CORS、登录安全与 GitHub Pages 博客沉淀。',
     tags: 'Deployment / Spring Boot / Vue / MySQL / Nginx / GitHub Pages',
-    href: './2026-05-31'
+    href: '/posts/2026-05-31'
   },
   {
     date: '2026-05-30',
@@ -36,7 +37,7 @@ const posts: Post[] = [
     summary:
       '记录智能商城的 Agent 优化、界面打磨、数据库三层架构思想，以及 VitePress + GitHub Pages 博客上线过程。',
     tags: 'SmartMall AI / Agent / Vue / Spring Boot / MySQL / GitHub Pages',
-    href: './2026-05-30'
+    href: '/posts/2026-05-30'
   }
 ]
 
@@ -68,7 +69,7 @@ function goToPage(page: number) {
         :key="post.href"
         class="post-card"
         :class="{ featured: currentPage === 1 && index === 0 }"
-        :href="post.href"
+        :href="withBase(post.href)"
       >
         <span>{{ post.date }}</span>
         <strong>{{ post.title }}</strong>

@@ -61,25 +61,9 @@ features:
   </div>
 </section>
 
-## 最近在做
+## 每日记录
 
-<div class="spotlight-grid">
-  <a class="spotlight-card primary" href="/blog/posts/2026-06-01">
-    <span>最新记录</span>
-    <strong>6.1 学习：线上访问恢复与部署排障</strong>
-    <p>记录 SmartMall AI 从公网 502 到恢复访问的完整过程，并补充三重缓存架构、300 并发压测和 MySQL migration 修复。</p>
-  </a>
-  <a class="spotlight-card" href="/blog/projects/smartmall-ai">
-    <span>项目复盘</span>
-    <strong>SmartMall AI 智能商城</strong>
-    <p>从商品浏览、下单支付、用户行为、管理员后台到 AI 导购 Agent 的完整项目沉淀。</p>
-  </a>
-  <a class="spotlight-card" href="/blog/learning/github-pages">
-    <span>学习笔记</span>
-    <strong>GitHub Pages 是怎么工作的</strong>
-    <p>理解静态博客从 Markdown 到网页发布的完整流程，以及为什么项目站点要处理 base 路径。</p>
-  </a>
-</div>
+<DailyPostPager />
 
 ## 写作结构
 
