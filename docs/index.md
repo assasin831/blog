@@ -67,7 +67,7 @@ features:
   <a class="spotlight-card primary" href="/blog/posts/2026-06-01">
     <span>最新记录</span>
     <strong>6.1 学习：线上访问恢复与部署排障</strong>
-    <p>记录 SmartMall AI 从公网 502 到恢复访问的完整过程：Waas 端口、Nginx、后端健康检查和 MySQL migration 修复。</p>
+    <p>记录 SmartMall AI 从公网 502 到恢复访问的完整过程，并补充三重缓存架构、300 并发压测和 MySQL migration 修复。</p>
   </a>
   <a class="spotlight-card" href="/blog/projects/smartmall-ai">
     <span>项目复盘</span>

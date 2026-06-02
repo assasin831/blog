@@ -11,8 +11,8 @@
   <a class="post-card featured" href="./2026-06-01">
     <span>2026-06-01</span>
     <strong>6.1 学习：SmartMall AI 线上访问恢复、Waas 部署与数据库迁移排障</strong>
-    <p>记录 SmartMall AI 从线上 502 到恢复访问的完整排障过程：Waas 端口映射、Nginx 监听、后端健康检查、MySQL migration 兼容性和登录页默认账号清理。</p>
-    <small>Waas / Nginx / Spring Boot / MySQL Migration / Deployment</small>
+    <p>记录 SmartMall AI 从线上 502 到恢复访问的完整排障过程，并补充三重缓存架构、300 并发压测、缓存命中率、MySQL migration 兼容性和登录页默认账号清理。</p>
+    <small>Waas / Nginx / Spring Boot / MySQL Migration / Three-Level Cache / Load Test</small>
   </a>
 
   <a class="post-card" href="./2026-05-31">
