@@ -557,7 +557,8 @@ body:has(.landing-home) .VPSwitch {
   position: absolute;
   inset: 0;
   z-index: -3;
-  background-image: url('/images/landing-anime-bg.png');
+  background-color: #090b18;
+  background-image: url('/images/landing-anime-bg-hero.jpg');
   background-position: center right;
   background-size: cover;
   --hero-media-scale: calc(1.055 + var(--hero-progress) * 0.075);

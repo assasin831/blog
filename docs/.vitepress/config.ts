@@ -9,7 +9,8 @@ export default defineConfig({
   lastUpdated: true,
   head: [
     ['meta', { name: 'theme-color', content: '#2563eb' }],
-    ['link', { rel: 'icon', href: '/blog/logo.svg' }]
+    ['link', { rel: 'icon', href: '/blog/logo.svg' }],
+    ['link', { rel: 'preload', href: '/blog/images/landing-anime-bg-hero.jpg', as: 'image', type: 'image/jpeg' }]
   ],
   themeConfig: {
     logo: '/logo.svg',
