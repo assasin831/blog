@@ -16,6 +16,14 @@ const pagerEl = ref<HTMLElement | null>(null)
 
 const posts: Post[] = [
   {
+    date: '2026-06-02',
+    title: '6.2 学习：SmartMall AI 商品分页、接口兼容与压测链路继续优化',
+    summary:
+      '按 6.1 后续计划继续推进商品列表分页，补充后端分页返回结构、前端分页交互、缓存 key 设计和压测脚本更新。',
+    tags: 'SmartMall AI / Pagination / MyBatis Plus / Vue / Cache / Load Test',
+    href: '/posts/2026-06-02'
+  },
+  {
     date: '2026-06-01',
     title: '6.1 学习：SmartMall AI 线上访问恢复、Waas 部署与数据库迁移排障',
     summary:
