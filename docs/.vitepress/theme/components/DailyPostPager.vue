@@ -16,6 +16,14 @@ const pagerEl = ref<HTMLElement | null>(null)
 
 const posts: Post[] = [
   {
+    date: '2026-06-03',
+    title: '6.3 学习：SmartMall AI 商品服务端排序、缓存维度与压测验证',
+    summary:
+      '按 6.2 后续计划继续推进商品分页后的服务端排序，补充 sort 参数、缓存 key 维度、前端 URL 状态和脚本化压测验证。',
+    tags: 'SmartMall AI / Server-side Sorting / MySQL Index / Cache / Vue / Load Test',
+    href: '/posts/2026-06-03'
+  },
+  {
     date: '2026-06-02',
     title: '6.2 学习：SmartMall AI 商品分页、接口兼容与压测链路继续优化',
     summary:
