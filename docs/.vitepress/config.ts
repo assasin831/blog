@@ -28,6 +28,7 @@ export default defineConfig({
           text: '每日记录',
           items: [
             { text: '记录索引', link: '/posts/' },
+            { text: '2026-06-04 SmartMall AI 缓存与 Agent 工作流', link: '/posts/2026-06-04' },
             { text: '2026-06-03 SmartMall AI 服务端排序优化', link: '/posts/2026-06-03' },
             { text: '2026-06-02 SmartMall AI 商品分页优化', link: '/posts/2026-06-02' },
             { text: '2026-06-01 SmartMall AI 线上恢复复盘', link: '/posts/2026-06-01' },

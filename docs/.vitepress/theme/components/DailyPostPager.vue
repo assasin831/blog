@@ -16,6 +16,14 @@ const pagerEl = ref<HTMLElement | null>(null)
 
 const posts: Post[] = [
   {
+    date: '2026-06-04',
+    title: '6.4 学习：SmartMall AI 三级缓存深化与导购 Agent 工作流优化',
+    summary:
+      '继续完善 Caffeine + Redis + MySQL 三级缓存，补充空值缓存、热点 key 回源锁、TTL 抖动和启动预热，并参考 LangGraph / Spring AI 优化导购 Agent 工作流。',
+    tags: 'SmartMall AI / Three-level Cache / Agent Workflow / Spring AI / LangGraph / Load Test',
+    href: '/posts/2026-06-04'
+  },
+  {
     date: '2026-06-03',
     title: '6.3 学习：SmartMall AI 商品服务端排序、缓存维度与压测验证',
     summary:
