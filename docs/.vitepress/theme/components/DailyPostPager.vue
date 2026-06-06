@@ -16,6 +16,14 @@ const pagerEl = ref<HTMLElement | null>(null)
 
 const posts: Post[] = [
   {
+    date: '2026-06-06',
+    title: '6.6 学习：SmartMall AI 引入 RabbitMQ 事件总线与异步削峰',
+    summary:
+      '在三级缓存和 Agent 审计之后，继续引入 RabbitMQ 消息队列，完成行为事件、订单事件、死信队列、降级发布器、管理员观测接口和验证脚本。',
+    tags: 'SmartMall AI / RabbitMQ / Message Queue / Async Events / DLQ / Load Test',
+    href: '/posts/2026-06-06'
+  },
+  {
     date: '2026-06-05',
     title: '6.5 学习：SmartMall AI 缓存热点观测与 Agent 审计链路完善',
     summary:
