@@ -16,6 +16,14 @@ const pagerEl = ref<HTMLElement | null>(null)
 
 const posts: Post[] = [
   {
+    date: '2026-06-05',
+    title: '6.5 学习：SmartMall AI 缓存热点观测与 Agent 审计链路完善',
+    summary:
+      '继续完善缓存可观测性和 Agent 审计能力，新增热点 key 排名、Redis key 快照、工作流审计、工具调用审计和观测脚本，并完成 500 请求压测。',
+    tags: 'SmartMall AI / Hot Keys / Redis Monitor / Agent Audit / Observability / Load Test',
+    href: '/posts/2026-06-05'
+  },
+  {
     date: '2026-06-04',
     title: '6.4 学习：SmartMall AI 三级缓存深化与导购 Agent 工作流优化',
     summary:
