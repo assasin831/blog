@@ -16,6 +16,14 @@ const pagerEl = ref<HTMLElement | null>(null)
 
 const posts: Post[] = [
   {
+    date: '2026-06-07',
+    title: '6.7 学习：SmartMall AI 消息队列 outbox 与 RabbitMQ 压测优化',
+    summary:
+      '继续完善 RabbitMQ 消息链路，新增 outbox 可靠投递、消费者并发参数、失败重试、管理员观测接口和行为事件压测脚本。',
+    tags: 'SmartMall AI / RabbitMQ / Outbox / Retry / DLQ / Messaging Load Test',
+    href: '/posts/2026-06-07'
+  },
+  {
     date: '2026-06-06',
     title: '6.6 学习：SmartMall AI 引入 RabbitMQ 事件总线与异步削峰',
     summary:

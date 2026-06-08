@@ -28,6 +28,7 @@ export default defineConfig({
           text: '每日记录',
           items: [
             { text: '记录索引', link: '/posts/' },
+            { text: '2026-06-07 SmartMall AI MQ outbox 优化', link: '/posts/2026-06-07' },
             { text: '2026-06-06 SmartMall AI RabbitMQ 事件总线', link: '/posts/2026-06-06' },
             { text: '2026-06-05 SmartMall AI 缓存观测与 Agent 审计', link: '/posts/2026-06-05' },
             { text: '2026-06-04 SmartMall AI 缓存与 Agent 工作流', link: '/posts/2026-06-04' },
