@@ -16,6 +16,14 @@ const pagerEl = ref<HTMLElement | null>(null)
 
 const posts: Post[] = [
   {
+    date: '2026-06-08',
+    title: '6.8 学习：SmartMall AI RabbitMQ/outbox 深度优化与 5000 并发压测闭环',
+    summary:
+      '继续优化 RabbitMQ/outbox 链路，完成用户画像异步化、outbox 并行投递、订单事件 5000 压测、参数矩阵报告、管理员监控页和登录态细节修复。',
+    tags: 'SmartMall AI / RabbitMQ / Outbox / 5000 Load Test / Admin Monitor / Seckill',
+    href: '/posts/2026-06-08'
+  },
+  {
     date: '2026-06-07',
     title: '6.7 学习：SmartMall AI 消息队列 outbox 与 RabbitMQ 压测优化',
     summary:
