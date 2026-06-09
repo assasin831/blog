@@ -16,6 +16,14 @@ const pagerEl = ref<HTMLElement | null>(null)
 
 const posts: Post[] = [
   {
+    date: '2026-06-09',
+    title: '6.9 学习：SmartMall AI RabbitMQ 可观测性与秒杀幂等补偿优化',
+    summary:
+      '继续完善 RabbitMQ routing key 统计、Management API 队列深度、秒杀 requestId 幂等、用户重复购买限制、Redis 库存失败补偿，并完成行为、订单、秒杀三条链路压测。',
+    tags: 'SmartMall AI / RabbitMQ / Queue Depth / Routing Key / Seckill / Idempotency',
+    href: '/posts/2026-06-09'
+  },
+  {
     date: '2026-06-08',
     title: '6.8 学习：SmartMall AI RabbitMQ/outbox 深度优化与 5000 并发压测闭环',
     summary:

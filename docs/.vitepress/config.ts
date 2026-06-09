@@ -28,6 +28,7 @@ export default defineConfig({
           text: '每日记录',
           items: [
             { text: '记录索引', link: '/posts/' },
+            { text: '2026-06-09 SmartMall AI MQ 可观测与秒杀补偿', link: '/posts/2026-06-09' },
             { text: '2026-06-08 SmartMall AI MQ 5000 压测闭环', link: '/posts/2026-06-08' },
             { text: '2026-06-07 SmartMall AI MQ outbox 优化', link: '/posts/2026-06-07' },
             { text: '2026-06-06 SmartMall AI RabbitMQ 事件总线', link: '/posts/2026-06-06' },
