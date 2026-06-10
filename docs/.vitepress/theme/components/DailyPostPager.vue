@@ -21,7 +21,7 @@ const posts: Post[] = [
     summary:
       '继续按 6.9 计划推进 SmartMall AI：补齐 DLQ 查看与安全重投、秒杀请求状态 MySQL 持久化、HikariCP 与 MySQL 性能快照、后台 MQ 可视化，并完成 5000 条混合流量压测。',
     tags: 'SmartMall AI / RabbitMQ / DLQ / Seckill Status / HikariCP / Mixed Load Test',
-    href: '/posts/2026-06-10'
+    href: '/posts/2026-06-10.html'
   },
   {
     date: '2026-06-09',
@@ -29,7 +29,7 @@ const posts: Post[] = [
     summary:
       '继续完善 RabbitMQ routing key 统计、Management API 队列深度、秒杀 requestId 幂等、用户重复购买限制、Redis 库存失败补偿，并完成行为、订单、秒杀三条链路压测。',
     tags: 'SmartMall AI / RabbitMQ / Queue Depth / Routing Key / Seckill / Idempotency',
-    href: '/posts/2026-06-09'
+    href: '/posts/2026-06-09.html'
   },
   {
     date: '2026-06-08',
@@ -37,7 +37,7 @@ const posts: Post[] = [
     summary:
       '继续优化 RabbitMQ/outbox 链路，完成用户画像异步化、outbox 并行投递、订单事件 5000 压测、参数矩阵报告、管理员监控页和登录态细节修复。',
     tags: 'SmartMall AI / RabbitMQ / Outbox / 5000 Load Test / Admin Monitor / Seckill',
-    href: '/posts/2026-06-08'
+    href: '/posts/2026-06-08.html'
   },
   {
     date: '2026-06-07',
@@ -45,7 +45,7 @@ const posts: Post[] = [
     summary:
       '继续完善 RabbitMQ 消息链路，新增 outbox 可靠投递、消费者并发参数、失败重试、管理员观测接口和行为事件压测脚本。',
     tags: 'SmartMall AI / RabbitMQ / Outbox / Retry / DLQ / Messaging Load Test',
-    href: '/posts/2026-06-07'
+    href: '/posts/2026-06-07.html'
   },
   {
     date: '2026-06-06',
@@ -53,7 +53,7 @@ const posts: Post[] = [
     summary:
       '在三级缓存和 Agent 审计之后，继续引入 RabbitMQ 消息队列，完成行为事件、订单事件、死信队列、降级发布器、管理员观测接口和验证脚本。',
     tags: 'SmartMall AI / RabbitMQ / Message Queue / Async Events / DLQ / Load Test',
-    href: '/posts/2026-06-06'
+    href: '/posts/2026-06-06.html'
   },
   {
     date: '2026-06-05',
@@ -61,7 +61,7 @@ const posts: Post[] = [
     summary:
       '继续完善缓存可观测性和 Agent 审计能力，新增热点 key 排名、Redis key 快照、工作流审计、工具调用审计和观测脚本，并完成 500 请求压测。',
     tags: 'SmartMall AI / Hot Keys / Redis Monitor / Agent Audit / Observability / Load Test',
-    href: '/posts/2026-06-05'
+    href: '/posts/2026-06-05.html'
   },
   {
     date: '2026-06-04',
@@ -69,7 +69,7 @@ const posts: Post[] = [
     summary:
       '继续完善 Caffeine + Redis + MySQL 三级缓存，补充空值缓存、热点 key 回源锁、TTL 抖动和启动预热，并参考 LangGraph / Spring AI 优化导购 Agent 工作流。',
     tags: 'SmartMall AI / Three-level Cache / Agent Workflow / Spring AI / LangGraph / Load Test',
-    href: '/posts/2026-06-04'
+    href: '/posts/2026-06-04.html'
   },
   {
     date: '2026-06-03',
@@ -77,7 +77,7 @@ const posts: Post[] = [
     summary:
       '按 6.2 后续计划继续推进商品分页后的服务端排序，补充 sort 参数、缓存 key 维度、前端 URL 状态和脚本化压测验证。',
     tags: 'SmartMall AI / Server-side Sorting / MySQL Index / Cache / Vue / Load Test',
-    href: '/posts/2026-06-03'
+    href: '/posts/2026-06-03.html'
   },
   {
     date: '2026-06-02',
@@ -85,7 +85,7 @@ const posts: Post[] = [
     summary:
       '按 6.1 后续计划继续推进商品列表分页，补充后端分页返回结构、前端分页交互、缓存 key 设计和压测脚本更新。',
     tags: 'SmartMall AI / Pagination / MyBatis Plus / Vue / Cache / Load Test',
-    href: '/posts/2026-06-02'
+    href: '/posts/2026-06-02.html'
   },
   {
     date: '2026-06-01',
@@ -93,7 +93,7 @@ const posts: Post[] = [
     summary:
       '记录 SmartMall AI 从线上 502 到恢复访问的完整排障过程，并补充三重缓存架构、300 并发压测、缓存命中率、MySQL migration 兼容性和登录页默认账号清理。',
     tags: 'Waas / Nginx / Spring Boot / MySQL Migration / Three-Level Cache / Load Test',
-    href: '/posts/2026-06-01'
+    href: '/posts/2026-06-01.html'
   },
   {
     date: '2026-05-31',
@@ -101,7 +101,7 @@ const posts: Post[] = [
     summary:
       '记录智能商城从本地开发走到远端部署的过程：Waas 端口映射、Nginx 反代、MySQL/Redis、CORS、登录安全与 GitHub Pages 博客沉淀。',
     tags: 'Deployment / Spring Boot / Vue / MySQL / Nginx / GitHub Pages',
-    href: '/posts/2026-05-31'
+    href: '/posts/2026-05-31.html'
   },
   {
     date: '2026-05-30',
@@ -109,7 +109,7 @@ const posts: Post[] = [
     summary:
       '记录智能商城的 Agent 优化、界面打磨、数据库三层架构思想，以及 VitePress + GitHub Pages 博客上线过程。',
     tags: 'SmartMall AI / Agent / Vue / Spring Boot / MySQL / GitHub Pages',
-    href: '/posts/2026-05-30'
+    href: '/posts/2026-05-30.html'
   }
 ]
 

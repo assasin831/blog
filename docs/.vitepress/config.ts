@@ -5,7 +5,7 @@ export default defineConfig({
   description: '记录开发、学习、项目复盘和技术成长',
   lang: 'zh-CN',
   base: '/blog/',
-  cleanUrls: true,
+  cleanUrls: false,
   lastUpdated: true,
   head: [
     ['meta', { name: 'theme-color', content: '#2563eb' }],
@@ -28,18 +28,18 @@ export default defineConfig({
           text: '每日记录',
           items: [
             { text: '记录索引', link: '/posts/' },
-            { text: '2026-06-10 SmartMall AI DLQ 与混合流量压测', link: '/posts/2026-06-10' },
-            { text: '2026-06-09 SmartMall AI MQ 可观测与秒杀补偿', link: '/posts/2026-06-09' },
-            { text: '2026-06-08 SmartMall AI MQ 5000 压测闭环', link: '/posts/2026-06-08' },
-            { text: '2026-06-07 SmartMall AI MQ outbox 优化', link: '/posts/2026-06-07' },
-            { text: '2026-06-06 SmartMall AI RabbitMQ 事件总线', link: '/posts/2026-06-06' },
-            { text: '2026-06-05 SmartMall AI 缓存观测与 Agent 审计', link: '/posts/2026-06-05' },
-            { text: '2026-06-04 SmartMall AI 缓存与 Agent 工作流', link: '/posts/2026-06-04' },
-            { text: '2026-06-03 SmartMall AI 服务端排序优化', link: '/posts/2026-06-03' },
-            { text: '2026-06-02 SmartMall AI 商品分页优化', link: '/posts/2026-06-02' },
-            { text: '2026-06-01 SmartMall AI 线上恢复复盘', link: '/posts/2026-06-01' },
-            { text: '2026-05-31 SmartMall AI 部署复盘', link: '/posts/2026-05-31' },
-            { text: '2026-05-30 SmartMall AI 项目复盘', link: '/posts/2026-05-30' }
+            { text: '2026-06-10 SmartMall AI DLQ 与混合流量压测', link: '/posts/2026-06-10.html' },
+            { text: '2026-06-09 SmartMall AI MQ 可观测与秒杀补偿', link: '/posts/2026-06-09.html' },
+            { text: '2026-06-08 SmartMall AI MQ 5000 压测闭环', link: '/posts/2026-06-08.html' },
+            { text: '2026-06-07 SmartMall AI MQ outbox 优化', link: '/posts/2026-06-07.html' },
+            { text: '2026-06-06 SmartMall AI RabbitMQ 事件总线', link: '/posts/2026-06-06.html' },
+            { text: '2026-06-05 SmartMall AI 缓存观测与 Agent 审计', link: '/posts/2026-06-05.html' },
+            { text: '2026-06-04 SmartMall AI 缓存与 Agent 工作流', link: '/posts/2026-06-04.html' },
+            { text: '2026-06-03 SmartMall AI 服务端排序优化', link: '/posts/2026-06-03.html' },
+            { text: '2026-06-02 SmartMall AI 商品分页优化', link: '/posts/2026-06-02.html' },
+            { text: '2026-06-01 SmartMall AI 线上恢复复盘', link: '/posts/2026-06-01.html' },
+            { text: '2026-05-31 SmartMall AI 部署复盘', link: '/posts/2026-05-31.html' },
+            { text: '2026-05-30 SmartMall AI 项目复盘', link: '/posts/2026-05-30.html' }
           ]
         }
       ],
