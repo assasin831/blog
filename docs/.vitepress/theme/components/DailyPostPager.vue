@@ -16,6 +16,14 @@ const pagerEl = ref<HTMLElement | null>(null)
 
 const posts: Post[] = [
   {
+    date: '2026-06-10',
+    title: '6.10 学习：SmartMall AI DLQ 管理、秒杀状态持久化与 5000 混合流量压测',
+    summary:
+      '继续按 6.9 计划推进 SmartMall AI：补齐 DLQ 查看与安全重投、秒杀请求状态 MySQL 持久化、HikariCP 与 MySQL 性能快照、后台 MQ 可视化，并完成 5000 条混合流量压测。',
+    tags: 'SmartMall AI / RabbitMQ / DLQ / Seckill Status / HikariCP / Mixed Load Test',
+    href: '/posts/2026-06-10'
+  },
+  {
     date: '2026-06-09',
     title: '6.9 学习：SmartMall AI RabbitMQ 可观测性与秒杀幂等补偿优化',
     summary:
