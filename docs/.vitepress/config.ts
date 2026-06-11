@@ -27,6 +27,7 @@ export default defineConfig({
         {
           text: '每日记录',
           items: [
+            { text: '2026-06-11 SmartMall AI 秒杀闭环与 DLQ 精准重投', link: '/posts/2026-06-11.html' },
             { text: '记录索引', link: '/posts/' },
             { text: '2026-06-10 SmartMall AI DLQ 与混合流量压测', link: '/posts/2026-06-10.html' },
             { text: '2026-06-09 SmartMall AI MQ 可观测与秒杀补偿', link: '/posts/2026-06-09.html' },

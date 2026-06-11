@@ -16,6 +16,14 @@ const pagerEl = ref<HTMLElement | null>(null)
 
 const posts: Post[] = [
   {
+    date: '2026-06-11',
+    title: '6.11 学习：SmartMall AI 秒杀状态闭环、DLQ 精准重投与订单查询优化',
+    summary:
+      '延续 6.10 后续计划，完成用户端秒杀状态轮询、管理员秒杀请求检索、DLQ 二次确认与单条重投、订单查询索引优化，以及 slow log / explain 性能采集脚本。',
+    tags: 'SmartMall AI / Seckill / DLQ / RabbitMQ / MySQL Index / Slow Query',
+    href: '/posts/2026-06-11.html'
+  },
+  {
     date: '2026-06-10',
     title: '6.10 学习：SmartMall AI DLQ 管理、秒杀状态持久化与 5000 混合流量压测',
     summary:
