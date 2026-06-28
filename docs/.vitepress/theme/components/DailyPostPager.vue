@@ -16,6 +16,142 @@ const pagerEl = ref<HTMLElement | null>(null)
 
 const posts: Post[] = [
   {
+    date: '2026-06-28',
+    title: '6.28 学习：SmartMall AI 秒杀活动、DLQ 审计与 6 月日志补齐',
+    summary:
+      '集中完成秒杀活动配置、活动库存隔离、管理员分页、DLQ 重投审计，并把 6.12 到 6.28 的 SmartMall AI 推进记录补回博客。',
+    tags: 'SmartMall AI / Seckill Campaign / DLQ Audit / Pagination / Blog',
+    href: '/posts/2026-06-28.html'
+  },
+  {
+    date: '2026-06-27',
+    title: '6.27 学习：SmartMall AI 部署与后续优化清单整理',
+    summary:
+      '整理服务器迁移、前端部署、秒杀活动验证、压测和 AI 导购 Agent 后续优化清单，为下一阶段调优留入口。',
+    tags: 'SmartMall AI / Deployment / Load Test / Agent / Checklist',
+    href: '/posts/2026-06-27.html'
+  },
+  {
+    date: '2026-06-26',
+    title: '6.26 学习：个人博客每日记录分页与索引维护',
+    summary:
+      '维护 VitePress 每日记录分页、posts 索引和侧边栏，为 6 月中下旬 SmartMall AI 连续补记做准备。',
+    tags: 'VitePress / Blog / Pagination / GitHub Pages',
+    href: '/posts/2026-06-26.html'
+  },
+  {
+    date: '2026-06-25',
+    title: '6.25 学习：SmartMall AI 缓存、MQ 与后台运维复盘',
+    summary:
+      '复盘三层缓存、RabbitMQ/outbox、后台可观测和故障恢复之间的关系，整理 SmartMall AI 的生产化方向。',
+    tags: 'SmartMall AI / Cache / RabbitMQ / Outbox / Admin Console',
+    href: '/posts/2026-06-25.html'
+  },
+  {
+    date: '2026-06-24',
+    title: '6.24 学习：SmartMall AI 工程化构建与回归检查',
+    summary:
+      '对后端 Maven、前端 vue-tsc 和 Vite 构建做回归检查，确认秒杀活动、DLQ 审计和后台分页类型一致。',
+    tags: 'SmartMall AI / Build / Vue / Spring Boot / Regression',
+    href: '/posts/2026-06-24.html'
+  },
+  {
+    date: '2026-06-23',
+    title: '6.23 学习：SmartMall AI 秒杀安全边界复盘',
+    summary:
+      '复盘 requestId 幂等、活动时间、单用户限购、Redis Lua 扣库存和异步失败补偿等秒杀安全边界。',
+    tags: 'SmartMall AI / Seckill / Idempotency / Redis Lua / Compensation',
+    href: '/posts/2026-06-23.html'
+  },
+  {
+    date: '2026-06-22',
+    title: '6.22 学习：SmartMall AI outbox 与 RabbitMQ 运维链路复盘',
+    summary:
+      '梳理业务事件、outbox、RabbitMQ、consumer、DLQ、重投和审计之间的完整异步消息路径。',
+    tags: 'SmartMall AI / RabbitMQ / Outbox / DLQ / Audit',
+    href: '/posts/2026-06-22.html'
+  },
+  {
+    date: '2026-06-21',
+    title: '6.21 学习：SmartMall AI 性能观测与后台分页验证',
+    summary:
+      '围绕秒杀活动分页、请求分页、DLQ 审计、RabbitMQ 队列深度和 MySQL 快照继续做后台验证。',
+    tags: 'SmartMall AI / Performance / Pagination / MQ Monitor',
+    href: '/posts/2026-06-21.html'
+  },
+  {
+    date: '2026-06-20',
+    title: '6.20 学习：SmartMall AI 管理员后台信息密度调整',
+    summary:
+      '整合 RabbitMQ、outbox、秒杀活动、秒杀请求、DLQ 和性能快照，让后台排障路径更集中。',
+    tags: 'SmartMall AI / Admin Console / Observability / UI',
+    href: '/posts/2026-06-20.html'
+  },
+  {
+    date: '2026-06-19',
+    title: '6.19 学习：SmartMall AI 用户端秒杀活动入口优化',
+    summary:
+      '商品详情页接入当前活动查询，只有活动有效时展示秒杀入口，并展示活动库存、限购和结束时间。',
+    tags: 'SmartMall AI / Vue / Seckill Campaign / Product Detail',
+    href: '/posts/2026-06-19.html'
+  },
+  {
+    date: '2026-06-18',
+    title: '6.18 学习：SmartMall AI 订单与秒杀请求索引复盘',
+    summary:
+      '围绕用户订单、后台订单、秒杀状态和活动维度查询继续梳理 MySQL 组合索引。',
+    tags: 'SmartMall AI / MySQL Index / Orders / Seckill Requests',
+    href: '/posts/2026-06-18.html'
+  },
+  {
+    date: '2026-06-17',
+    title: '6.17 学习：SmartMall AI DLQ 审计后台展示',
+    summary:
+      '管理员消息队列页面增加 DLQ 重投审计列表，让死信恢复操作可以追踪和复盘。',
+    tags: 'SmartMall AI / DLQ / Audit / Admin Console',
+    href: '/posts/2026-06-17.html'
+  },
+  {
+    date: '2026-06-16',
+    title: '6.16 学习：SmartMall AI DLQ 重投审计表设计',
+    summary:
+      '设计 DLQ 重投审计表，记录操作者、重投数量、跳过数量、错误数量、routing key 和 payload hash。',
+    tags: 'SmartMall AI / DLQ / Audit / RabbitMQ',
+    href: '/posts/2026-06-16.html'
+  },
+  {
+    date: '2026-06-15',
+    title: '6.15 学习：SmartMall AI 秒杀请求后台分页与运维查询',
+    summary:
+      '把管理员秒杀请求列表从 limit 查询升级为 page/pageSize 分页，并支持状态、用户、商品、requestId 和订单号排障。',
+    tags: 'SmartMall AI / Seckill / Pagination / Admin Query',
+    href: '/posts/2026-06-15.html'
+  },
+  {
+    date: '2026-06-14',
+    title: '6.14 学习：SmartMall AI 管理员秒杀活动配置入口',
+    summary:
+      '补齐管理员秒杀活动配置思路，支持活动创建、修改、启停，让秒杀从代码配置走向运营配置。',
+    tags: 'SmartMall AI / Seckill Campaign / Admin Console',
+    href: '/posts/2026-06-14.html'
+  },
+  {
+    date: '2026-06-13',
+    title: '6.13 学习：SmartMall AI 秒杀 campaignId 与 Redis 库存隔离',
+    summary:
+      '将 campaignId 接入秒杀请求、Redis 活动库存、用户限购 key 和异步消息，避免多场活动互相影响。',
+    tags: 'SmartMall AI / Redis / Seckill / Campaign',
+    href: '/posts/2026-06-13.html'
+  },
+  {
+    date: '2026-06-12',
+    title: '6.12 学习：SmartMall AI 秒杀活动表设计与链路拆分',
+    summary:
+      '设计 mall_seckill_campaign，把普通商品和秒杀活动拆开，为活动库存、限购、时间窗口和后台配置做准备。',
+    tags: 'SmartMall AI / Seckill / MySQL / Data Model',
+    href: '/posts/2026-06-12.html'
+  },
+  {
     date: '2026-06-11',
     title: '6.11 学习：SmartMall AI 秒杀状态闭环、DLQ 精准重投与订单查询优化',
     summary:
